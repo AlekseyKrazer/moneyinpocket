@@ -14,6 +14,8 @@ use yii\web\Cookie;
 
 <div class="col-md-4">
     <?php
+
+    //Выбираем класс активной кнопки
     $class1='';
     $class2='';
     $class3='';

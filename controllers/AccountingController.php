@@ -46,7 +46,7 @@ class AccountingController extends Controller
 
     private function YiiSetDataCookie($datetime)
     {
-        //Тестим куку
+        //При переключении дней и времени в календаре записываем в куку выбранное значение, чтобы потом переходить на него
             Yii::$app->response->cookies->add(new Cookie([
                 'name' => 'datetime_1',
                 'value' => date("Y-m-d H:i", strtotime($datetime)),
@@ -57,6 +57,7 @@ class AccountingController extends Controller
 
     private function YiiSetSelectCookie($name,$id)
     {
+        //Создает и записывает в куку значение, название select, потому что предполагалось использовать только для полей select
         Yii::$app->response->cookies->add(new Cookie([
             'name' => $name,
             'value' => $id
@@ -66,7 +67,7 @@ class AccountingController extends Controller
 
     public function actionTest($type,$date=false)
     {
-
+        //Функция выборки данных при изменении даты в календарике. Включается ajax.
         if (!in_array($type, [1, 2, 3])) {
             return $this->redirect(Url::to(["accounting/index", "type" => 1]));
         }
@@ -74,6 +75,7 @@ class AccountingController extends Controller
         $date=date("Y-m-d", strtotime($date));
 
         if ($type==3) {
+            //Если обмен, то используется этот SQL запрос.
             $data_for = Exchange::find()
                 ->select(['exchange.id', 'exchange.date', 'exchange.datetime', 'exchange.amount', 'exchange.deposit_from', 'd.name as deposit_from_name',
                     'd.images as deposit_from_images', 'exchange.deposit_to', 'dd.name as deposit_to_name', 'dd.images as deposit_to_images',
@@ -84,6 +86,7 @@ class AccountingController extends Controller
                 ->orderBy("datetime")
                 ->asArray()->all();
         } else {
+            //Если расходы или доходы, то дергаем все данные по ним.
             $data_for = Yii::$app->db->createCommand("
               SELECT op.id, op.date, op.datetime, op.amount, op.deposit_id, dep.name as deposit_name, dep.images, op.category_id, 
               cat.name as category_name, op.comment 
@@ -92,12 +95,23 @@ class AccountingController extends Controller
               JOIN deposits dep ON op.deposit_id=dep.id and dep.user_id=op.user_id
               WHERE op.user_id=" . $user_id . " and date='" . $date . "' and op.type=" . $type . " ORDER by datetime ASC")->queryAll();
         }
-        $this->YiiSetDataCookie($date);
+
+        /*
+        Записываем куку. Если выбранный день - это сегодня, то кука удаляется, чтобы у нас был реалтайм.
+        Если нет - записываем куку
+        */
+        if (date("Y-m-d", strtotime($date))!=date("Y-m-d",time())) {
+            $this->YiiSetDataCookie($date);
+        } else {
+            Yii::$app->response->cookies->remove("datetime_1");
+        }
+
         return $this->renderPartial("test", compact('date','data_for', 'type'));
     }
 
     public function actionIndex($id=false, $date=false)
     {
+        //Проверка на тип, должен быть только тот, что в массиве.
         if (!isset($_GET['type'])) {
             $_GET['type']=1;
             $type=1;
@@ -110,7 +124,7 @@ class AccountingController extends Controller
         }
 
 
-
+//Если обмен, то используем другую модель
         if ($type == 3) {
             $operations = new Exchange();
             if (isset($id) and $id!='') {
@@ -126,13 +140,15 @@ class AccountingController extends Controller
         $add_array=array();
 
         if (Yii::$app->request->post()) {
-
+//Проверка и обработка пришедших из формы данных. Имя формы может быть разным.
             $add_array['_csrf'] = Yii::$app->request->post()['_csrf'];
             $add_array[$operations->formName()]['datetime'] = Yii::$app->request->post()[$operations->formName()]['datetime'];
             $add_array[$operations->formName()]['date'] = date("Y-m-d", strtotime(Yii::$app->request->post()[$operations->formName()]['datetime']));
             $date = $add_array[$operations->formName()]['date'];
             $add_array[$operations->formName()]['type'] = Yii::$app->request->post()[$operations->formName()]['type'];
             $add_array[$operations->formName()]['amount'] = Yii::$app->request->post()[$operations->formName()]['amount'];
+
+            //Поле amount может выполнять математические действия. Удаляем все лишнее и выполняем действие.
             $add_array[$operations->formName()]['amount'] = str_replace(',', ".", $add_array[$operations->formName()]['amount']);
             $equation = preg_replace('[^0-9\+-\*\/\(\) ]', '', $add_array[$operations->formName()]['amount']);
             if (!empty($equation)) {
@@ -142,12 +158,16 @@ class AccountingController extends Controller
             if ($add_array[$operations->formName()]['type'] == 1) {
                 $add_array[$operations->formName()]['amount'] = -1 * $add_array[$operations->formName()]['amount'];
             }
+            //
+
             $add_array[$operations->formName()]['user_id'] = Yii::$app->request->post()[$operations->formName()]['user_id'];
 
+            //При обмене у нас две переменных deposit_from - откуда взяли деньги и deposit_to - куда положили. Категории нет.
             if ($add_array[$operations->formName()]['type'] == 3) {
                 $add_array[$operations->formName()]['deposit_from'] = str_replace("dep_", "", Yii::$app->request->post()[$operations->formName()]['deposit_id']);
                 $add_array[$operations->formName()]['deposit_to'] = str_replace("dep_", "", Yii::$app->request->post()[$operations->formName()]['deposit_id2']);
             } else {
+                //При расходе и доходе есть категория дохода\расхода и депозит с которым провели операцию.
                 $add_array[$operations->formName()]['category_id'] = Yii::$app->request->post()[$operations->formName()]['category_id'];
                 $add_array[$operations->formName()]['deposit_id'] = str_replace("dep_", "", Yii::$app->request->post()[$operations->formName()]['deposit_id']);
             }
@@ -200,7 +220,7 @@ class AccountingController extends Controller
             $date = date("Y-m-d", strtotime($operations->datetime));
         } else {
             if (!isset(Yii::$app->request->cookies['datetime_1'])) {
-                $this->YiiSetDataCookie(date("Y-m-d H:i", time()));
+                //$this->YiiSetDataCookie(date("Y-m-d H:i", time()));
                 $date = date("Y-m-d", time());
                 $datetime = date("Y-m-d H:i", time());
             } else {
