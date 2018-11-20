@@ -55,4 +55,23 @@ class Deposits extends \yii\db\ActiveRecord
             'debt' => 'Debt',
         ];
     }
+
+    public static function getAllDepositWithoutDebt()
+    {
+        $dep = Yii::$app->db->createCommand(
+            'SELECT  CONCAT(\'dep_\',id) as id, `name`, `group_id` as parent_id, images, \'dep\' as type from deposits WHERE debt=0
+                                                  UNION
+                                                  SELECT id, name, parent_id, \'\' as images, \'cat\' as type from groups WHERE debt=0'
+        )->queryAll();
+        return $dep;
+    }
+    public static function getAllDepositWithDebt()
+    {
+        $debt = Yii::$app->db->createCommand(
+            'SELECT  CONCAT(\'dep_\',id) as id, `name`, `group_id` as parent_id, images, \'dep\' as type from deposits WHERE debt=1
+                                                  UNION
+                                                  SELECT id, name, parent_id, \'\' as images, \'cat\' as type from groups WHERE debt=1'
+        )->queryAll();
+        return $debt;
+    }
 }

@@ -19,7 +19,7 @@ use yii\web\Cookie;
     $class1='';
     $class2='';
     $class3='';
-    switch ($_GET['type']) {
+    switch ($type) {
         case 1:
             $class1 = 'class="btn btn-primary"';
             break;
@@ -43,7 +43,7 @@ use yii\web\Cookie;
 //            'onchange' => '$.post( "' . Yii::$app->urlManager->createUrl(["accounting/test"]) . '&date="+$(this).val(), function(data){
 //             $("#test_div").html( data );
 //             })'
-            'onchange' => '$.post( "' . Yii::$app->urlManager->createUrl(["accounting/test"]) . '&type='.$_GET['type'].'&date="+$(this).val(), function(data){
+            'onchange' => '$.post( "' . Yii::$app->urlManager->createUrl(["accounting/history"]) . '&type='.$type.'&date="+$(this).val(), function(data){
              $("#test_div").html( data );
              })'
         ],
@@ -62,12 +62,12 @@ use yii\web\Cookie;
 
         ],
     ]) ?>
-    <?= Html::a("Сейчас", ['accounting/index', 'type' => 4]); ?>
-    <?= $form->field($operations, "type")->hiddenInput(['value' =>  $_GET['type']])->label(false) ?>
+    <?= Html::a("Сейчас", ['accounting/now', 'type' => $type]); ?>
+    <?= $form->field($operations, "type")->hiddenInput(['value' =>  $type])->label(false) ?>
     <?php if (isset($_GET['id']) and $_GET['id']!='') {
-    echo $form->field($operations, "amount")->input("text", ['placeholder' => 'Введите сумму', 'value' => abs($operations->amount)])->label(false);
+        echo $form->field($operations, "amount")->input("text", ['placeholder' => 'Введите сумму', 'value' => abs($operations->amount)])->label(false);
     } else {
-       echo $form->field($operations, "amount")->input("text", ['placeholder' => 'Введите сумму'])->label(false);
+        echo $form->field($operations, "amount")->input("text", ['placeholder' => 'Введите сумму'])->label(false);
     }
     ?>
     <?= $form->field($operations, "user_id")->hiddenInput(['value' => 1])->label(false) ?>
@@ -78,21 +78,21 @@ use yii\web\Cookie;
             <?= MenuWidget::widget(['tpl' => 'select_comb','source' => 'deposit', 'data'=> $debt, 'model' => $operations]); ?>
         </optgroup>
     </select><BR>
-    <?php if ($_GET['type']==1): ?>
+    <?php if ($type==1): ?>
     <label class="control-label" for="operations-category_id"><span class="text-danger">На что тратим</span></label>
     <select id="operations-category_id" class="form-control" name="<?= $operations->formName() ?>[category_id]" aria-required="true">
         <?= MenuWidget::widget(['tpl' => 'select', 'source' => 'category', 'model' => $operations]) ?>
     </select><BR>
     <?endif; ?>
-    <?php if ($_GET['type']==2): ?>
+    <?php if ($type==2): ?>
         <label class="control-label" for="operations-category_id"><span class="text-success">Как заработали?</span></label>
         <select id="operations-category_id" class="form-control" name="<?= $operations->formName() ?>[category_id]" aria-required="true">
             <?= MenuWidget::widget(['tpl' => 'select', 'source' => 'income', 'model' => $operations]) ?>
         </select><BR>
     <?endif; ?>
-    <?php if ($_GET['type']==3): ?>
+    <?php if ($type==3): ?>
         <label class="control-label" for="operations-deposit_id">Куда переносим?</label>
-        <select id="operations-deposit_id" class="form-control" name="<?= $operations->formName() ?>[deposit_id2]" aria-required="true">
+        <select id="operations-deposit_id2" class="form-control" name="<?= $operations->formName() ?>[deposit_id2]" aria-required="true">
             <?= MenuWidget::widget(['tpl' => 'select_comb_exchange','source' => 'deposit_exchange', 'data'=> $dep, 'model' => $operations]); ?>
             <optgroup label="Долговые места">
             <?= MenuWidget::widget(['tpl' => 'select_comb_exchange','source' => 'deposit_exchange', 'data'=> $debt, 'model' => $operations]); ?>
@@ -100,17 +100,17 @@ use yii\web\Cookie;
         </select><BR>
     <?endif; ?>
     <?= $form->field($operations, "comment") ?>
-    <?php if ($_GET['type']==1): ?>
+    <?php if ($type==1): ?>
     <?= Html::submitButton('Зафиксировать трату') ?>
     <?php endif; ?>
-    <?php if ($_GET['type']==2): ?>
+    <?php if ($type==2): ?>
         <?= Html::submitButton('Зафиксировать доход') ?>
     <?php endif; ?>
-    <?php if ($_GET['type']==3): ?>
+    <?php if ($type==3): ?>
         <?= Html::submitButton('Перенести') ?>
     <?php endif; ?>
     <?php if (isset($_GET['id']) and $_GET['id']!=''): ?>
-    <?= Html::a('Удалить<span class="glyphicon glyphicon-remove"></span>', ['delete', 'id' => $_GET['id'], 'type' => $_GET['type']], [
+    <?= Html::a('Удалить<span class="glyphicon glyphicon-remove"></span>', ['delete', 'id' => $_GET['id'], 'type' => $type], [
         'data' => [
             'confirm' => 'Вы действительно хотите удалить?',
             'method' => 'post',
@@ -122,7 +122,7 @@ use yii\web\Cookie;
 
 <div id="test_div">
     <?php
-    if ($_GET['type']==3) {
+    if ($type == 3) {
         foreach ($operations_data as $key => $value) {
             echo " Из ";
             echo Html::img('@web/images/' . $value['deposit_from_images'], ['width' => 16]) . "    ";
@@ -137,7 +137,7 @@ use yii\web\Cookie;
 
     } else {
         $sum_amount=0;
-        if ($_GET['type']==1) {
+        if ($type==1) {
             $class="text-danger";
         } else {
             $class="text-success";
@@ -146,7 +146,7 @@ use yii\web\Cookie;
             $sum_amount=$sum_amount+$value['amount'];
             echo Html::img('@web/images/' . $value['images'], ['width' => 16]) . "    ";
             echo $value['category_name'] . "   ";
-            echo "<font size=4>" . Html::a(Yii::$app->formatter->asCurrency($value['amount']), ['accounting/index', 'type' => $_GET['type'], 'id' => $value['id']],['class' => $class ]) . "</font>   ";
+            echo "<font size=4>" . Html::a(Yii::$app->formatter->asCurrency($value['amount']), ['accounting/index', 'type' => $type, 'id' => $value['id']], ['class' => $class ]) . "</font>   ";
             echo Yii::$app->formatter->asDate(strtotime($value['datetime']), 'php:d M H:i') . "<BR>";
             echo $value['comment'] . "<BR><BR>";
         }

@@ -26,7 +26,7 @@ if ($type==3) {
         $sum_amount=$sum_amount+$v['amount'];
         echo Html::img('@web/images/' . $v['images'], ['width' => 16]) . "    ";
         echo $v['category_name'] . "   ";
-        echo "<font size=4>" . Html::a(Yii::$app->formatter->asCurrency($v['amount']), ['accounting/index', 'type' => $_GET['type'], 'id' => $v['id']],['class' => $class ]) . "</font>   ";
+        echo "<font size=4>" . Html::a(Yii::$app->formatter->asCurrency($v['amount']), ['accounting/index', 'type' => $_GET['type'], 'id' => $v['id']], ['class' => $class ]) . "</font>   ";
         echo Yii::$app->formatter->asDate(strtotime($v['datetime']), 'php:d M H:i') . "<BR>";
         echo $v['comment'] . "<BR><BR>";
     }
@@ -34,5 +34,4 @@ if ($type==3) {
         echo "Итого: <font size=4 class=" . $class . ">" . Yii::$app->formatter->asCurrency($sum_amount) . "</font>";
     }
 }
-    ?>
 

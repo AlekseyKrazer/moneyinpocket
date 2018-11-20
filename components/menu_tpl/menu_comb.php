@@ -8,8 +8,8 @@ use yii\helpers\Html;
     <?php if (isset($category['images']) and $category['images'] != ''):
         echo Html::img('@web/images/' . $category['images'], ['width' => 16]);
     endif; ?>
-    <a href="<?= \yii\helpers\Url::to(['accounting/' . $this->source . '-update', 'id' => $category['id']]) ?>"><?= $category['name'] ?></a>
-    <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', [$this->source . '-delete', 'id' => $category['id']], [
+    <a href="<?= \yii\helpers\Url::to(['accounting/deposit-update', 'id' => $category['id'], 'debt' => $this->debt]) ?>"><?= $category['name'] ?></a>
+    <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['deposit-delete', 'id' => $category['id'], 'debt' => $this->debt], [
         'data' => [
             'confirm' => 'Вы действительно хотите удалить?',
             'method' => 'post',

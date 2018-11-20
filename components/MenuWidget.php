@@ -24,6 +24,7 @@ class MenuWidget extends Widget
     public $menuHtml;
     public $model;
     public $source;
+    public $debt;
 
     public function init()
     {
@@ -50,6 +51,10 @@ class MenuWidget extends Widget
                 $this->data = Groups::find()->indexBy("id")->where(['debt' => 0])->asArray()->all();
                 break;
             case 'deposit':
+                $this->debt = 0;
+                break;
+            case 'debt':
+                $this->debt = 1;
                 break;
             case 'deposit_exchange':
                 break;
@@ -155,8 +160,6 @@ class MenuWidget extends Widget
                     $total = $k['total'] + $total;
                 }
                 $this->data = ArrayHelper::index($this->data, "id");
-                break;
-            case 'debt':
                 break;
             case 'groups-debt':
                 $this->data = Groups::find()->indexBy("id")->where(['debt' => 1])->asArray()->all();

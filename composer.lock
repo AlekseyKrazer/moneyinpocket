@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1caea9565fb1b23fd7564123b53db267",
+    "content-hash": "6c72e5fc5e039c9a1e899e0d2309eb98",
     "packages": [
         {
             "name": "beaten-sect0r/yii2-flatpickr",
@@ -283,13 +283,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "71bfaf2450d0b338a35d2818039e1c7637e75481"
+                "reference": "0690e9b119d9116098cbae4f15703c14f9c264b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/71bfaf2450d0b338a35d2818039e1c7637e75481",
-                "reference": "71bfaf2450d0b338a35d2818039e1c7637e75481",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/0690e9b119d9116098cbae4f15703c14f9c264b2",
+                "reference": "0690e9b119d9116098cbae4f15703c14f9c264b2",
                 "shasum": ""
+            },
+            "suggest": {
+                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
+                "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version"
             },
             "type": "yii2-extension",
             "extra": {
@@ -323,7 +327,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-10-09T07:54:35+00:00"
+            "time": "2018-11-10T11:06:12+00:00"
         },
         {
             "name": "kartik-v/yii2-sortable",
@@ -331,12 +335,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-sortable.git",
-                "reference": "a6f9a9adb873d6345de92bbe5e436ac1a1db30bc"
+                "reference": "62fa91ee8fd5676f8e049877a2ad2a75e9431da0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-sortable/zipball/a6f9a9adb873d6345de92bbe5e436ac1a1db30bc",
-                "reference": "a6f9a9adb873d6345de92bbe5e436ac1a1db30bc",
+                "url": "https://api.github.com/repos/kartik-v/yii2-sortable/zipball/62fa91ee8fd5676f8e049877a2ad2a75e9431da0",
+                "reference": "62fa91ee8fd5676f8e049877a2ad2a75e9431da0",
                 "shasum": ""
             },
             "require": {
@@ -375,7 +379,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-10-09T13:25:05+00:00"
+            "time": "2018-11-05T12:36:13+00:00"
         },
         {
             "name": "kartik-v/yii2-sortable-input",
@@ -383,12 +387,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-sortable-input.git",
-                "reference": "88fa29f63a32ceb25a597e92f9da37deae7e15c2"
+                "reference": "9b49072e5c5c83e74fbaa8f9d6928fd26cad375c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-sortable-input/zipball/88fa29f63a32ceb25a597e92f9da37deae7e15c2",
-                "reference": "88fa29f63a32ceb25a597e92f9da37deae7e15c2",
+                "url": "https://api.github.com/repos/kartik-v/yii2-sortable-input/zipball/9b49072e5c5c83e74fbaa8f9d6928fd26cad375c",
+                "reference": "9b49072e5c5c83e74fbaa8f9d6928fd26cad375c",
                 "shasum": ""
             },
             "require": {
@@ -428,7 +432,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-08-29T02:33:59+00:00"
+            "time": "2018-11-05T12:36:39+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -490,12 +494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "6b44d0107c56c2563aec6894ac9e6a0798d52e75"
+                "reference": "acacba6b962bd0f38e450376f736ff42ccf4673b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/6b44d0107c56c2563aec6894ac9e6a0798d52e75",
-                "reference": "6b44d0107c56c2563aec6894ac9e6a0798d52e75",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/acacba6b962bd0f38e450376f736ff42ccf4673b",
+                "reference": "acacba6b962bd0f38e450376f736ff42ccf4673b",
                 "shasum": ""
             },
             "require": {
@@ -582,7 +586,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2018-10-18T22:26:40+00:00"
+            "time": "2018-11-14T14:56:03+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -834,12 +838,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/base.git",
-                "reference": "04761aa6864d8fe7f6360aa3210cbf8235ad0d76"
+                "reference": "ec6b7bd4d78c1adba3dbd5c3c52fc683e8aef6de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/base/zipball/04761aa6864d8fe7f6360aa3210cbf8235ad0d76",
-                "reference": "04761aa6864d8fe7f6360aa3210cbf8235ad0d76",
+                "url": "https://api.github.com/repos/Codeception/base/zipball/ec6b7bd4d78c1adba3dbd5c3c52fc683e8aef6de",
+                "reference": "ec6b7bd4d78c1adba3dbd5c3c52fc683e8aef6de",
                 "shasum": ""
             },
             "require": {
@@ -916,7 +920,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2018-09-24T09:46:36+00:00"
+            "time": "2018-10-29T21:37:15+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
@@ -1178,12 +1182,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "4b981cdeb8c13d22a6c193554f8c686f53d5c958"
+                "reference": "23e7d3812a82bdbff4a5cb8e4628bcc06eec5d68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/4b981cdeb8c13d22a6c193554f8c686f53d5c958",
-                "reference": "4b981cdeb8c13d22a6c193554f8c686f53d5c958",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/23e7d3812a82bdbff4a5cb8e4628bcc06eec5d68",
+                "reference": "23e7d3812a82bdbff4a5cb8e4628bcc06eec5d68",
                 "shasum": ""
             },
             "require": {
@@ -1230,13 +1234,14 @@
             "keywords": [
                 "http",
                 "message",
+                "psr-7",
                 "request",
                 "response",
                 "stream",
                 "uri",
                 "url"
             ],
-            "time": "2018-07-29T08:09:46+00:00"
+            "time": "2018-11-01T01:48:29+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1584,12 +1589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06"
+                "reference": "3660b2eed90abdf92ac2e9dae9a238d2701bfa77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3660b2eed90abdf92ac2e9dae9a238d2701bfa77",
+                "reference": "3660b2eed90abdf92ac2e9dae9a238d2701bfa77",
                 "shasum": ""
             },
             "require": {
@@ -1639,7 +1644,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-08-05T17:53:17+00:00"
+            "time": "2018-11-04T18:50:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1647,12 +1652,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "b097681a19a48e52706f57e47a09594bac4f7cab"
+                "reference": "807e6013b00af69b6c5d9ceb4282d0393dbb9d8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/b097681a19a48e52706f57e47a09594bac4f7cab",
-                "reference": "b097681a19a48e52706f57e47a09594bac4f7cab",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/807e6013b00af69b6c5d9ceb4282d0393dbb9d8d",
+                "reference": "807e6013b00af69b6c5d9ceb4282d0393dbb9d8d",
                 "shasum": ""
             },
             "require": {
@@ -1702,7 +1707,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-10-18T09:01:38+00:00"
+            "time": "2018-10-31T16:06:48+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1850,12 +1855,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "711ca0c13c66f6b66c2ecb586e56415815034330"
+                "reference": "6df086c042b6bb4fbcfcda15b8e52d5f8955aaee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/711ca0c13c66f6b66c2ecb586e56415815034330",
-                "reference": "711ca0c13c66f6b66c2ecb586e56415815034330",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/6df086c042b6bb4fbcfcda15b8e52d5f8955aaee",
+                "reference": "6df086c042b6bb4fbcfcda15b8e52d5f8955aaee",
                 "shasum": ""
             },
             "require": {
@@ -1891,7 +1896,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2018-06-06T10:32:05+00:00"
+            "time": "2018-10-30T07:50:55+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -2118,12 +2123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2256ef8e824cc494ddeebaa00fabe7ab4d83fc75"
+                "reference": "71bdaddd52ddb753a144c78289f21abb719aebc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2256ef8e824cc494ddeebaa00fabe7ab4d83fc75",
-                "reference": "2256ef8e824cc494ddeebaa00fabe7ab4d83fc75",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/71bdaddd52ddb753a144c78289f21abb719aebc4",
+                "reference": "71bdaddd52ddb753a144c78289f21abb719aebc4",
                 "shasum": ""
             },
             "require": {
@@ -2174,7 +2179,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2018-09-07T13:55:31+00:00"
+            "time": "2018-10-30T05:42:23+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -2182,12 +2187,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "366541b989927187c4ca70490a35615d3fef2dce"
+                "reference": "6906fbe33455221909eab31d4b8b1517b94aba46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/366541b989927187c4ca70490a35615d3fef2dce",
-                "reference": "366541b989927187c4ca70490a35615d3fef2dce",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/6906fbe33455221909eab31d4b8b1517b94aba46",
+                "reference": "6906fbe33455221909eab31d4b8b1517b94aba46",
                 "shasum": ""
             },
             "require": {
@@ -2230,7 +2235,7 @@
                 "unidiff",
                 "unified diff"
             ],
-            "time": "2018-06-10T07:54:39+00:00"
+            "time": "2018-10-30T05:42:15+00:00"
         },
         {
             "name": "sebastian/environment",
@@ -2406,12 +2411,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/object-enumerator.git",
-                "reference": "06d95dc84f06fc6cc246b8bf48facebcf0fe8069"
+                "reference": "e6be0a5481aff88f29262c331eab5b3ea939f55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/object-enumerator/zipball/06d95dc84f06fc6cc246b8bf48facebcf0fe8069",
-                "reference": "06d95dc84f06fc6cc246b8bf48facebcf0fe8069",
+                "url": "https://api.github.com/repos/sebastianbergmann/object-enumerator/zipball/e6be0a5481aff88f29262c331eab5b3ea939f55f",
+                "reference": "e6be0a5481aff88f29262c331eab5b3ea939f55f",
                 "shasum": ""
             },
             "require": {
@@ -2445,7 +2450,7 @@
             ],
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
-            "time": "2018-05-15T05:52:18+00:00"
+            "time": "2018-10-30T05:41:47+00:00"
         },
         {
             "name": "sebastian/object-reflector",
@@ -2631,17 +2636,68 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "squizlabs/php_codesniffer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "f693a3f05e920bef631b75808d3b2bf796346060"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f693a3f05e920bef631b75808d3b2bf796346060",
+                "reference": "f693a3f05e920bef631b75808d3b2bf796346060",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2018-11-07T22:57:20+00:00"
+        },
+        {
             "name": "symfony/browser-kit",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "c403035e5a4e8b2919d725a511022ef1e2d3232b"
+                "reference": "5bb3199fd7aee3c1674e70b3dcd7e39e06da4ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/c403035e5a4e8b2919d725a511022ef1e2d3232b",
-                "reference": "c403035e5a4e8b2919d725a511022ef1e2d3232b",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/5bb3199fd7aee3c1674e70b3dcd7e39e06da4ada",
+                "reference": "5bb3199fd7aee3c1674e70b3dcd7e39e06da4ada",
                 "shasum": ""
             },
             "require": {
@@ -2685,7 +2741,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2018-09-29T21:52:52+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "symfony/console",
@@ -2693,12 +2749,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "2e629ed12c551c95336165ded274c71908c48ff8"
+                "reference": "7b2dc3ee659453b97bf2f6e887fc036475389a49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/2e629ed12c551c95336165ded274c71908c48ff8",
-                "reference": "2e629ed12c551c95336165ded274c71908c48ff8",
+                "url": "https://api.github.com/repos/symfony/console/zipball/7b2dc3ee659453b97bf2f6e887fc036475389a49",
+                "reference": "7b2dc3ee659453b97bf2f6e887fc036475389a49",
                 "shasum": ""
             },
             "require": {
@@ -2754,7 +2810,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-14T20:50:41+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -2762,12 +2818,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "df30ce9a7726feff039b5eaacffe5d48920d1f9f"
+                "reference": "4a33574d5771f4b04334cd4f7d43de96a92efb62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/df30ce9a7726feff039b5eaacffe5d48920d1f9f",
-                "reference": "df30ce9a7726feff039b5eaacffe5d48920d1f9f",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/4a33574d5771f4b04334cd4f7d43de96a92efb62",
+                "reference": "4a33574d5771f4b04334cd4f7d43de96a92efb62",
                 "shasum": ""
             },
             "require": {
@@ -2822,7 +2878,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-10-10T09:20:36+00:00"
+            "time": "2018-10-31T08:00:32+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -2830,12 +2886,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "3504dc5c848fe7362561fdeddaf24c2616577a43"
+                "reference": "aa9fa526ba1b2ec087ffdfb32753803d999fcfcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/3504dc5c848fe7362561fdeddaf24c2616577a43",
-                "reference": "3504dc5c848fe7362561fdeddaf24c2616577a43",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/aa9fa526ba1b2ec087ffdfb32753803d999fcfcd",
+                "reference": "aa9fa526ba1b2ec087ffdfb32753803d999fcfcd",
                 "shasum": ""
             },
             "require": {
@@ -2875,7 +2931,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:38:08+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -2883,12 +2939,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "2dc921174d64361eacfb240acce373f653df21b4"
+                "reference": "3d17eaba5805b9dd1f44fd9bcdde4f080978fc27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/2dc921174d64361eacfb240acce373f653df21b4",
-                "reference": "2dc921174d64361eacfb240acce373f653df21b4",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/3d17eaba5805b9dd1f44fd9bcdde4f080978fc27",
+                "reference": "3d17eaba5805b9dd1f44fd9bcdde4f080978fc27",
                 "shasum": ""
             },
             "require": {
@@ -2932,7 +2988,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T12:43:31+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2940,12 +2996,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "c8bbac387c9b4ba48586e2f839303274274600fe"
+                "reference": "d39d7a05414c4462abd8c077322b4811549f705c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c8bbac387c9b4ba48586e2f839303274274600fe",
-                "reference": "c8bbac387c9b4ba48586e2f839303274274600fe",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/d39d7a05414c4462abd8c077322b4811549f705c",
+                "reference": "d39d7a05414c4462abd8c077322b4811549f705c",
                 "shasum": ""
             },
             "require": {
@@ -2996,7 +3052,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-10T13:54:27+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "symfony/finder",
@@ -3004,12 +3060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "dbfc8530bf5f3fbeeba9f94bf8fc797364c6b61c"
+                "reference": "e53d477d7b5c4982d0e1bfd2298dbee63d01441d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/dbfc8530bf5f3fbeeba9f94bf8fc797364c6b61c",
-                "reference": "dbfc8530bf5f3fbeeba9f94bf8fc797364c6b61c",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/e53d477d7b5c4982d0e1bfd2298dbee63d01441d",
+                "reference": "e53d477d7b5c4982d0e1bfd2298dbee63d01441d",
                 "shasum": ""
             },
             "require": {
@@ -3045,11 +3101,11 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-10T13:30:17+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "dev-master",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -3107,7 +3163,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "dev-master",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -3170,12 +3226,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "7228a3e2163ab5623231f126cf8d7701072f9d16"
+                "reference": "c41175c801e3edfda90f32e292619d10c27103d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/7228a3e2163ab5623231f126cf8d7701072f9d16",
-                "reference": "7228a3e2163ab5623231f126cf8d7701072f9d16",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/c41175c801e3edfda90f32e292619d10c27103d7",
+                "reference": "c41175c801e3edfda90f32e292619d10c27103d7",
                 "shasum": ""
             },
             "require": {
@@ -3221,7 +3277,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:38:08+00:00"
+            "time": "2018-11-11T19:52:12+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -3413,12 +3469,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "6d30fa9571379ffff98a31597dc5bbf26bb83248"
+                "reference": "26faa5ce575ff1e9d4700d756038660a4e8567f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/6d30fa9571379ffff98a31597dc5bbf26bb83248",
-                "reference": "6d30fa9571379ffff98a31597dc5bbf26bb83248",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/26faa5ce575ff1e9d4700d756038660a4e8567f6",
+                "reference": "26faa5ce575ff1e9d4700d756038660a4e8567f6",
                 "shasum": ""
             },
             "require": {
@@ -3454,7 +3510,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2018-10-12T13:45:34+00:00"
+            "time": "2018-11-12T21:54:34+00:00"
         }
     ],
     "aliases": [],

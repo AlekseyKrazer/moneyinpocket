@@ -66,7 +66,7 @@ AppAsset::register($this);
         ]) ?>
         <?= Alert::widget() ?>
 
-        <?php if (Yii::$app->controller->getUniqueId()=='accounting'): ?>
+        <?php if (Yii::$app->controller->getUniqueId()=='accounting') : ?>
         <div class="col-md-4">
 
             <?= Nav::widget([
@@ -76,9 +76,9 @@ AppAsset::register($this);
                     ['label' => 'Ввод операций', 'url' => ['accounting/index'], 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'План расходов', 'url' => ['accounting/planning'], 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Категории затрат', 'url' => ['accounting/category'], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['accounting/category','accounting/category-update']), 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
-                    ['label' => 'Счета (места хранения денег)', 'url' => ['accounting/deposit'], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['accounting/deposit','accounting/deposit-update']),'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
+                    ['label' => 'Счета (места хранения денег)', 'url' => ['accounting/deposit', 'debt' => 0], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['accounting/deposit','accounting/deposit-update']) && Yii::$app->getRequest()->getQueryParam('debt') == 0,'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Доходы', 'url' => ['accounting/income'], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['accounting/income','accounting/income-update']), 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
-                    ['label' => 'Долги\Займы', 'url' => ['accounting/debt'], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['accounting/debt','accounting/debt-update']), 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
+                    ['label' => 'Долги\Займы', 'url' => ['accounting/deposit', 'debt' => 1], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['accounting/deposit','accounting/deposit-update']) && Yii::$app->getRequest()->getQueryParam('debt') == 1, 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Отчеты', 'url' => ['accounting/report'], 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     // 'Products' menu item will be selected as long as the route is 'product/index'
 //            ['label' => 'Products', 'url' => ['product/index'], 'items' => [

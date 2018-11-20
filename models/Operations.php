@@ -55,4 +55,18 @@ class Operations extends \yii\db\ActiveRecord
             'comment' => 'Комментарий',
         ];
     }
+
+    public static function getHistoryData($date, $type)
+    {
+        $data = Yii::$app->db->createCommand(
+            "
+              SELECT op.id, op.date, op.datetime, op.amount, op.deposit_id, dep.name as deposit_name, dep.images, op.category_id, 
+              cat.name as category_name, op.comment 
+              FROM operations op 
+              JOIN categories cat  ON cat.id=op.category_id and cat.user_id=op.user_id
+              JOIN deposits dep ON op.deposit_id=dep.id and dep.user_id=op.user_id
+              WHERE op.user_id=" . Yii::$app->user->id . " and date='" . $date . "' and op.type=" . $type . " ORDER by datetime ASC"
+        )->queryAll();
+        return $data;
+    }
 }
