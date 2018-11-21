@@ -8,7 +8,7 @@ use app\models\Operations;
 
 class OperationAction
 {
-    const TYPE_ARRAY = array(1,2,3);
+    const TYPE_ARRAY = [1,2,3];
     public $type;
 
     public function __construct($type)
