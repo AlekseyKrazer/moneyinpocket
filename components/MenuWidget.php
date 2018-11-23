@@ -62,8 +62,6 @@ class MenuWidget extends Widget
                 $deposit_action = new DepositAction($this->debt);
                 $this->data = $deposit_action->getData();
                 break;
-            case 'deposit_exchange':
-                break;
             case 'total-deposit':
                 $this->data = Yii::$app->db->createCommand(
                     "Select * from 

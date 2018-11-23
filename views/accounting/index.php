@@ -1,14 +1,10 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use bs\Flatpickr\FlatpickrWidget as Flatpickr;
-use kartik\sortable\Sortable;
-use kartik\sortinput\SortableInput;
 use app\components\MenuWidget;
-use app\components\TotalWidget;
-use yii\web\Cookie;
+use bs\Flatpickr\FlatpickrWidget as Flatpickr;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 ?>
 <script> var exports = {}; </script>
 
@@ -73,29 +69,29 @@ use yii\web\Cookie;
     <?= $form->field($operations, "user_id")->hiddenInput(['value' => 1])->label(false) ?>
     <label class="control-label" for="operations-deposit_id">Места хранения</label>
     <select id="operations-deposit_id" class="form-control" name="<?= $operations->formName() ?>[deposit_id]" aria-required="true">
-        <?= MenuWidget::widget(['tpl' => 'select_comb','source' => 'deposit', 'data'=> $dep, 'model' => $operations]); ?>
+        <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit', 'model' => $operations]); ?>
         <optgroup label="Долговые места">
-            <?= MenuWidget::widget(['tpl' => 'select_comb','source' => 'deposit', 'data'=> $debt, 'model' => $operations]); ?>
+            <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'debt', 'model' => $operations]); ?>
         </optgroup>
     </select><BR>
-    <?php if ($type==1): ?>
+    <?php if ($type == 1): ?>
     <label class="control-label" for="operations-category_id"><span class="text-danger">На что тратим</span></label>
     <select id="operations-category_id" class="form-control" name="<?= $operations->formName() ?>[category_id]" aria-required="true">
         <?= MenuWidget::widget(['tpl' => 'select', 'source' => 'category', 'model' => $operations]) ?>
     </select><BR>
     <?endif; ?>
-    <?php if ($type==2): ?>
+    <?php if ($type == 2): ?>
         <label class="control-label" for="operations-category_id"><span class="text-success">Как заработали?</span></label>
         <select id="operations-category_id" class="form-control" name="<?= $operations->formName() ?>[category_id]" aria-required="true">
             <?= MenuWidget::widget(['tpl' => 'select', 'source' => 'income', 'model' => $operations]) ?>
         </select><BR>
     <?endif; ?>
-    <?php if ($type==3): ?>
+    <?php if ($type == 3): ?>
         <label class="control-label" for="operations-deposit_id">Куда переносим?</label>
         <select id="operations-deposit_id2" class="form-control" name="<?= $operations->formName() ?>[deposit_id2]" aria-required="true">
-            <?= MenuWidget::widget(['tpl' => 'select_comb_exchange','source' => 'deposit_exchange', 'data'=> $dep, 'model' => $operations]); ?>
+            <?= MenuWidget::widget(['tpl' => 'select_comb_exchange', 'source' => 'deposit', 'model' => $operations]); ?>
             <optgroup label="Долговые места">
-            <?= MenuWidget::widget(['tpl' => 'select_comb_exchange','source' => 'deposit_exchange', 'data'=> $debt, 'model' => $operations]); ?>
+                <?= MenuWidget::widget(['tpl' => 'select_comb_exchange', 'source' => 'debt', 'model' => $operations]); ?>
             </optgroup>
         </select><BR>
     <?endif; ?>

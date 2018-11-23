@@ -4,11 +4,9 @@ namespace app\controllers;
 
 use app\logic\FormProcessing;
 use app\logic\OperationAction;
-use app\models\Deposits;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Cookie;
@@ -135,12 +133,6 @@ class AccountingController extends Controller
         //Выгружаем все необходимые данные
 
         $operations_data = $operation_action->getDataForDay($date);
-
-        $dep=Deposits::getAllDepositWithoutDebt();
-        $dep=ArrayHelper::index($dep, "id");
-
-        $debts = Deposits::getAllDepositWithDebt();
-        $debt =ArrayHelper::index($debts, "id");
 
         return $this->render('index', compact('operations', 'dep', 'debt', 'operations_data', 'datetime', 'type'));
     }
