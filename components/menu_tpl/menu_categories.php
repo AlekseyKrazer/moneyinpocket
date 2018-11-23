@@ -1,9 +1,11 @@
 <?php
+
 use yii\helpers\Html;
+
 ?>
 <li>
-    <a href="<?= \yii\helpers\Url::to(['accounting/'.$this->source.'-update', 'id' => $category['id']]) ?>"><?= $category['name'] ?></a>
-    <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', [$this->source.'-delete', 'id' => $category['id']], [
+    <a href="<?= \yii\helpers\Url::to([$this->source . '/update', 'id' => $category['id'], 'type' => $category['type']]) ?>"><?= $category['name'] ?></a>
+    <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', [$this->source . '/delete', 'id' => $category['id'], 'type' => $category['type']], [
         'data' => [
             'confirm' => 'Вы действительно хотите удалить?',
             'method' => 'post',

@@ -46,6 +46,7 @@ class MenuWidget extends Widget
         switch ($this->source) {
             case 'income':
                 $this->data = Categories::find()->indexBy("id")->asArray()->where(['type' => 2, 'user_id' => Yii::$app->user->id])->all();
+                $this->source = 'categories';
                 break;
             case 'groups':
                 $this->data = Groups::find()->indexBy("id")->where(['debt' => 0])->asArray()->all();
@@ -166,16 +167,16 @@ class MenuWidget extends Widget
                 break;
             default:
                 $this->data = Categories::find()->indexBy("id")->asArray()->where(['type' => 1, 'user_id' => Yii::$app->user->id])->all();
-                $this->source = 'category';
+                $this->source = 'categories';
         }
         $this->tree = $this->getTree();
 
         $this->menuHtml = $this->getMenuHtml($this->tree);
 
         if ($total < 0) {
-            $total = "Итого: <font color='red'>" . Yii::$app->formatter->asCurrency($total) . "</font>";
+            $total = "Итого: <span style=\"color='red'\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
         } elseif ($total > 0) {
-            $total = "Итого: <font color='green'>" . Yii::$app->formatter->asCurrency($total) . "</font>";
+            $total = "Итого: <span style=\"color='red'\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
         }
 
         return $this->menuHtml . $total;

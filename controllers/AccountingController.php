@@ -2,18 +2,16 @@
 
 namespace app\controllers;
 
+use app\logic\FormProcessing;
 use app\logic\OperationAction;
-use yii\helpers\ArrayHelper;
-use yii\web\Controller;
-use app\models\Operations;
-use yii\helpers\Url;
-use app\models\Categories;
-use Yii;
 use app\models\Deposits;
-use yii\web\Cookie;
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use app\logic\FormProcessing;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\web\Controller;
+use yii\web\Cookie;
 
 class AccountingController extends Controller
 {
@@ -49,9 +47,9 @@ class AccountingController extends Controller
         Yii::$app->response->cookies->add(
             new Cookie(
                 [
-                'name' => $name,
-                'value' => $value,
-                'expire' => time()+$expire,
+                    'name' => $name,
+                    'value' => $value,
+                    'expire' => time() + $expire,
                 ]
             )
         );
@@ -102,13 +100,13 @@ class AccountingController extends Controller
 
         if (isset($add_array) && $operations->load($add_array)) {
             if ($operations->save()) {
-                    Yii::$app->session->setFlash('success', 'Операция успешно записана');
-                    $this->yiiSetCookie("datetime", date("Y-m-d H:i", strtotime($add_array[$operations->formName()]['datetime'])), 120);
+                Yii::$app->session->setFlash('success', 'Операция успешно записана');
+                $this->yiiSetCookie("datetime", date("Y-m-d H:i", strtotime($add_array[$operations->formName()]['datetime'])), 120);
 
                 if (isset($add_array[$operations->formName()]['deposit_id'])) {
-                          $this->yiiSetCookie("deposit", $add_array[$operations->formName()]['deposit_id'], 3600*24);
+                    $this->yiiSetCookie("deposit", $add_array[$operations->formName()]['deposit_id'], 3600 * 24);
                 }
-                    return $this->redirect(Url::to(["accounting/index", "type" => $type]));
+                return $this->redirect(Url::to(["accounting/index", "type" => $type]));
             } else {
                 Yii::$app->session->setFlash('error', 'Error!');
             }
@@ -155,133 +153,14 @@ class AccountingController extends Controller
 
         if (empty($model)) {
             Yii::$app->session->setFlash('error', 'Ошибка при удалении #301');
-            return $this->redirect(['accounting/index', 'type' => $type]);
         } else {
             if ($model->delete()) {
                 Yii::$app->session->setFlash('success', 'Операция успешно удалена');
-                return $this->redirect(['accounting/index', 'type' => $type]);
             } else {
                 Yii::$app->session->setFlash('error', 'Error!');
             }
         }
-    }
-
-    public function actionCategory()
-    {
-        $model = new Categories();
-
-        if ($model->load(Yii::$app->request->post())) {
-            //Здесь надо написать сравнение, чтобы user_id у залогиненного совпадал с пришедшим из формы
-            if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Категория успешно создана');
-                return $this->refresh();
-            } else {
-                Yii::$app->session->setFlash('error', 'Error!');
-            }
-        }
-        return $this->render('category', compact('model'));
-    }
-
-    public function actionCategoryUpdate($id)
-    {
-        $model = Categories::find()->where(['id' => $id, 'user_id' => Yii::$app->user->id])->one();
-        if (empty($model)) {
-            Yii::$app->session->setFlash('error', 'Ошибка при обновлении #301');
-            return $this->redirect(['accounting/category']);
-        } else {
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'Категория успешно обновлена');
-                    return $this->redirect(['accounting/category']);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Error!');
-                }
-            }
-            return $this->render('category', compact('model'));
-        }
-    }
-
-    public function actionCategoryDelete($id)
-    {
-        $count = Operations::find()->where(['category_id' => $id, 'user_id' => Yii::$app->user->id])->count();
-
-        if ($count==0) {
-            $model = Categories::find()->where(['id' => $id, 'user_id' => Yii::$app->user->id])->one();
-            if (empty($model)) {
-                Yii::$app->session->setFlash('error', 'Ошибка при удалении #301');
-                return $this->redirect(['accounting/category']);
-            } else {
-                if ($model->delete()) {
-                    Yii::$app->session->setFlash('success', 'Категория успешно удалена');
-                    return $this->redirect(['accounting/category']);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Error!');
-                }
-            }
-        } else {
-            Yii::$app->session->setFlash('error', 'В этой категории хранится '.$count.' операций, которые надо либо удалить, либо перенести в другую категорию. Так же категорию можно скрыть.');
-            return $this->redirect(['accounting/category']);
-        }
-    }
-
-    public function actionIncome()
-    {
-        $model = new Categories();
-
-        if ($model->load(Yii::$app->request->post())) {
-            //Здесь надо написать сравнение, чтобы user_id у залогиненного совпадал с пришедшим из формы
-            if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Источник дохода успешно создан');
-                return $this->refresh();
-            } else {
-                Yii::$app->session->setFlash('error', 'Error!');
-            }
-        }
-        return $this->render('income', compact('model'));
-    }
-
-
-    public function actionIncomeUpdate($id)
-    {
-
-        $model = Categories::find()->where(['id' => $id, 'user_id' => Yii::$app->user->id])->one();
-        if (empty($model)) {
-            Yii::$app->session->setFlash('error', 'Ошибка при обновлении доходов #301');
-            return $this->redirect(['accounting/income']);
-        } else {
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'Источник дохода успешно обновлен');
-                    return $this->redirect(['accounting/income']);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Error!');
-                }
-            }
-            return $this->render('income', compact('model'));
-        }
-    }
-
-    public function actionIncomeDelete($id)
-    {
-        $count = Operations::find()->where(['category_id' => $id, 'user_id' => Yii::$app->user->id])->count();
-
-        if ($count==0) {
-            $model = Categories::find()->where(['id' => $id, 'user_id' => Yii::$app->user->id])->one();
-            if (empty($model)) {
-                Yii::$app->session->setFlash('error', 'Ошибка при удалении источника дохода #301');
-                return $this->redirect(['accounting/income']);
-            } else {
-                if ($model->delete()) {
-                    Yii::$app->session->setFlash('success', 'Источник дохода успешно удален');
-                    return $this->redirect(['accounting/income']);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Error!');
-                }
-            }
-        } else {
-            Yii::$app->session->setFlash('error', 'К этому доходу относится '.$count.' операций, которые надо либо удалить, либо перенести в другую категорию доходов. Также доход можно скрыть.');
-            return $this->redirect(['accounting/income']);
-        }
+        return $this->redirect(['accounting/index', 'type' => $type]);
     }
 
     public function actionPlanning()
