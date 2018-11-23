@@ -74,7 +74,7 @@ echo MenuWidget::widget(['tpl' => 'menu_comb','source' => 'deposit', 'data'=> $d
     <?= Html::submitButton('Создать доход') ?>
     <?php ActiveForm::end() ?>
     <br>
-    <?php if (in_array(Yii::$app->controller->module->requestedRoute, ['accounting/deposit-update'])): ?>
+    <?php if (in_array(Yii::$app->controller->module->requestedRoute, ['deposit/update'])): ?>
     <h3>Перенос</h3>
     <?php $form = ActiveForm::begin(); ?>
     <label class="control-label" for="operations-deposit_id">Откуда переносим</label>

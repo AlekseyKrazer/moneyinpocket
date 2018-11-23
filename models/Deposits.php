@@ -74,4 +74,34 @@ class Deposits extends \yii\db\ActiveRecord
         )->queryAll();
         return $debt;
     }
+
+    public static function depositTransfer($post_data)
+    {
+        if ($post_data['deposit_from']==$post_data['deposit_to']) {
+            Yii::$app->session->setFlash('error', 'Нельзя переносить из одного счета в тот же самый');
+        } else {
+            $sql=array();
+            $deposit_from=str_replace("dep_", "", $post_data['deposit_from']);
+            $deposit_to=str_replace("dep_", "", $post_data['deposit_to']);
+            $sql[]="UPDATE operations SET deposit_id=".$deposit_to." WHERE deposit_id=".$deposit_from;
+            $sql[]="UPDATE exchange SET deposit_from=".$deposit_to." WHERE deposit_from=".$deposit_from;
+            $sql[]="UPDATE exchange SET deposit_to=".$deposit_to." WHERE deposit_to=".$deposit_from;
+
+            /* Надо будет добавить обработку, чтобы на этот депозит переносилась стартовая сумма.(???)
+             * и чтобы не было ситуации, когда переносится из одного депозита в тот же самый.
+             */
+
+            $transaction =  Yii::$app->db->beginTransaction();
+            try {
+                foreach ($sql as $s) {
+                    Yii::$app->db->createCommand($s)->execute();
+                }
+                $transaction->commit();
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+            Yii::$app->session->setFlash('success', 'Успешно переведено');
+        }
+    }
 }
