@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\Deposits;
-use app\models\Groups;
-use Yii;
 use app\logic\DepositAction;
-use app\models\Operations;
+use app\models\Deposits;
 use app\models\Exchange;
+use app\models\Groups;
+use app\models\Operations;
+use Yii;
 
 class DepositController extends \yii\web\Controller
 {
@@ -37,9 +37,9 @@ class DepositController extends \yii\web\Controller
             }
         }
 
-        $dep = $deposit_action->getData();
+        $lang = $deposit_action->getParams();
 
-        return $this->render($deposit_action->view, compact('groups', 'deposit', 'dep', 'debt'));
+        return $this->render('deposit', compact('groups', 'deposit', 'debt', 'lang'));
     }
 
     public function actionUpdate($id, $debt = 0)
@@ -75,19 +75,17 @@ class DepositController extends \yii\web\Controller
 
         //Если был инициирован перенос операций - выполняем их
         if (isset(Yii::$app->request->post()['Transfer'])) {
-//            $transfer = new FormProcessing('Transfer', Yii::$app->request->post());
-//            $transfer->depositTransfer();
             Deposits::depositTransfer(Yii::$app->request->post()['Transfer']);
         }
+
+        $lang = $deposit_action->getParams();
 
         //Показываем количество операций по этому депозиту
         $count = Operations::find()->where(['deposit_id' => $id, 'user_id' => Yii::$app->user->id])->count();
         $count_exchange = Exchange::find()->where(['or','deposit_to='.$id,'deposit_from='.$id])->count();
         $arr_count=['count_operations' => $count, 'count_exchange' => $count_exchange];
 
-        $dep = $deposit_action->getData();
-
-        return $this->render($deposit_action->view, compact('groups', 'deposit', 'dep', 'debt', 'arr_count'));
+        return $this->render('deposit', compact('groups', 'deposit', 'debt', 'arr_count', 'lang'));
     }
 
 
@@ -103,19 +101,17 @@ class DepositController extends \yii\web\Controller
             $model = Deposits::find()->where(['id' => $id, 'user_id' => Yii::$app->user->id, 'debt' => $debt])->one();
             if (empty($model)) {
                 Yii::$app->session->setFlash('error', 'Ошибка при удалении #301');
-                return $this->redirect(['deposit/index', 'debt' => $debt]);
             } else {
                 if ($model->delete()) {
                     Yii::$app->session->setFlash('success', $deposit_action->title.' успешно удален');
-                    return $this->redirect(['deposit/index', 'debt' => $debt]);
                 } else {
                     Yii::$app->session->setFlash('error', 'Error!');
                 }
             }
         } else {
             Yii::$app->session->setFlash('error', 'К этому счету относится '.$count.' операций и '.$count_exchange.' операций обмена, которые надо либо удалить, либо перенести в другой счет. Так же счет можно просто скрыть.');
-            return $this->redirect(['deposit/index', 'debt' => $debt]);
         }
+        return $this->redirect(['deposit/index', 'debt' => $debt]);
     }
 
     public function actionIndex2()

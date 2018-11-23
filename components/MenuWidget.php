@@ -9,6 +9,7 @@
 
 namespace app\components;
 
+use app\logic\DepositAction;
 use app\models\Categories;
 use app\models\Groups;
 use Yii;
@@ -42,7 +43,7 @@ class MenuWidget extends Widget
         /**
         Выгружаем данные из источника source.
         Если выгрузки не происходит, значит данные должны передаваться сразу в data при инициализации виджета.
-        */
+         */
         switch ($this->source) {
             case 'income':
                 $this->data = Categories::find()->indexBy("id")->asArray()->where(['type' => 2, 'user_id' => Yii::$app->user->id])->all();
@@ -53,9 +54,13 @@ class MenuWidget extends Widget
                 break;
             case 'deposit':
                 $this->debt = 0;
+                $deposit_action = new DepositAction($this->debt);
+                $this->data = $deposit_action->getData();
                 break;
             case 'debt':
                 $this->debt = 1;
+                $deposit_action = new DepositAction($this->debt);
+                $this->data = $deposit_action->getData();
                 break;
             case 'deposit_exchange':
                 break;

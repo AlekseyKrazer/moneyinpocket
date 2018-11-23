@@ -3,6 +3,7 @@
 namespace app\logic;
 
 use app\models\Deposits;
+use Yii;
 use yii\helpers\ArrayHelper;
 
 class DepositAction
@@ -16,10 +17,8 @@ class DepositAction
         $this->debt=$debt;
         if ($this->debt == 0) {
             $this->title = 'Счет';
-            $this->view = 'deposit';
         } else {
             $this->title = 'Долг';
-            $this->view = 'debt';
         }
     }
 
@@ -40,5 +39,31 @@ class DepositAction
             $dep = ArrayHelper::index($dep, "id");
         }
         return $dep;
+    }
+
+    public function getParams()
+    {
+        if ($this->debt == 0) {
+            $lang_array['source'] = 'deposit';
+            $lang_array['title'] = 'Счета';
+            if (Yii::$app->controller->module->requestedRoute == 'deposit/update') {
+                $lang_array['button'] = 'Редактировать счет';
+                $lang_array['title_right'] = 'Редактирование счета';
+            } else {
+                $lang_array['button'] = 'Создать счет';
+                $lang_array['title_right'] = 'Создание счета';
+            }
+        } else {
+            $lang_array['source'] = 'debt';
+            $lang_array['title'] = 'Долги/Займы';
+            if (Yii::$app->controller->module->requestedRoute == 'deposit/update') {
+                $lang_array['button'] = 'Редактировать долг\займ';
+                $lang_array['title_right'] = 'Редактирование долга\займа';
+            } else {
+                $lang_array['button'] = 'Создать долг\займ';
+                $lang_array['title_right'] = 'Создание долга';
+            }
+        }
+        return $lang_array;
     }
 }

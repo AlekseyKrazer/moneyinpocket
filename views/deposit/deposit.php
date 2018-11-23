@@ -1,34 +1,23 @@
 <?php
-use kartik\sortinput\SortableInput;
-use yii\widgets\ActiveForm;
+
 use app\components\MenuWidget;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 ?>
 <div class="col-md-4">
 
-<h1>Счета</h1>
+    <h1><?= $lang['title'] ?></h1>
     <?php
-//    echo SortableInput::widget([
-//        'name'=> 'sort_list_2',
-//        'value'=>'3,4,2,1,5',
-//        'items' => [
-//            1 => ['content' => 'Item # 1'],
-//            2 => ['content' => 'Item # 2'],
-//            3 => ['content' => 'Item # 3'],
-//            4 => ['content' => 'Item # 4'],
-//            5 => ['content' => 'Item # 44']
-//        ],
-//        'hideInput' => false,
-//        'options' => ['class'=>'form-control', 'readonly'=>true]
-//    ]);
 
-echo MenuWidget::widget(['tpl' => 'menu_comb','source' => 'deposit', 'data'=> $dep]);
+
+    echo MenuWidget::widget(['tpl' => 'menu_comb', 'source' => $lang['source']]);
 
 
     ?>
 </div>
 <div class="col-md-4">
-    <h3>Создание счета</h3>
+    <h3><?= $lang['title_right'] ?></h3>
     <?php $form = ActiveForm::begin(['options' => ['style' => 'width: 100%;', 'autocomplete' => 'off']]); ?>
     <?= $form->field($deposit, 'name') ?>
     <label class="control-label" for="categories-parent_id">Нужна ли группа?</label>
@@ -56,7 +45,7 @@ echo MenuWidget::widget(['tpl' => 'menu_comb','source' => 'deposit', 'data'=> $d
     ], ['encode' => false]) ?>
     <?= $form->field($deposit, 'start_sum') ?>
     <?= $form->field($deposit, 'position') ?>
-    <?= Html::submitButton('Создать счет') ?>
+    <?= Html::submitButton($lang['button']) ?>
     <?php ActiveForm::end() ?>
     <br>
     <h3>Создание групп</h3>
@@ -71,7 +60,7 @@ echo MenuWidget::widget(['tpl' => 'menu_comb','source' => 'deposit', 'data'=> $d
     <?= $form->field($groups, "user_id")->hiddenInput(['value' => 1])->label(false) ?>
     <?= $form->field($groups, "debt")->hiddenInput(['value' => $debt])->label(false) ?>
     <?= $form->field($groups, 'position') ?>
-    <?= Html::submitButton('Создать доход') ?>
+    <?= Html::submitButton('Создать группу') ?>
     <?php ActiveForm::end() ?>
     <br>
     <?php if (in_array(Yii::$app->controller->module->requestedRoute, ['deposit/update'])): ?>
@@ -79,13 +68,13 @@ echo MenuWidget::widget(['tpl' => 'menu_comb','source' => 'deposit', 'data'=> $d
     <?php $form = ActiveForm::begin(); ?>
     <label class="control-label" for="operations-deposit_id">Откуда переносим</label>
     <select id="operations-deposit_id" class="form-control" name="Transfer[deposit_from]" aria-required="true">
-        <?= MenuWidget::widget(['tpl' => 'select_comb','source' => 'deposit', 'data'=> $dep, 'model' => $deposit]); ?>
+        <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit', 'model' => $deposit]); ?>
     </select><BR>
     Операций <?= $arr_count['count_operations'] ?> <BR>
         Операций обмена <?= $arr_count['count_exchange'] ?> <BR>
     <label class="control-label" for="operations-deposit_id">Куда переносим?</label>
     <select id="operations-deposit_id" class="form-control" name="Transfer[deposit_to]" aria-required="true">
-        <?= MenuWidget::widget(['tpl' => 'select_comb','source' => 'deposit', 'data'=> $dep]); ?>
+        <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit']); ?>
     </select><BR>
         <?= Html::submitButton('Перенести') ?>
     <?php ActiveForm::end() ?>
