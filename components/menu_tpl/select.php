@@ -4,7 +4,7 @@ if (isset($this->model->parent_id)) {
     if ($category['id'] == $this->model->parent_id) {
         echo "selected";
     }
-}elseif (isset($this->model->group_id)) {
+} elseif (isset($this->model->group_id)) {
     if ($category['id'] == $this->model->group_id) {
         echo "selected";
     }

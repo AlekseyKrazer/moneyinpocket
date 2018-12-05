@@ -15,7 +15,7 @@
                 echo "selected";
             }
         }
-         ?>
+        ?>
     ><?= $tab .$category['name'] ?></option>
 <?php endif; ?>
 
