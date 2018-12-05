@@ -104,6 +104,9 @@ class AccountingController extends Controller
                 if (isset($add_array[$operations->formName()]['deposit_id'])) {
                     $this->yiiSetCookie("deposit", $add_array[$operations->formName()]['deposit_id'], 3600 * 24);
                 }
+                if (isset($add_array[$operations->formName()]['category_id'])) {
+                    $this->yiiSetCookie("category", $add_array[$operations->formName()]['category_id'], 3600 * 24);
+                }
                 return $this->redirect(Url::to(["accounting/index", "type" => $type]));
             } else {
                 Yii::$app->session->setFlash('error', 'Error!');
@@ -113,6 +116,10 @@ class AccountingController extends Controller
         //Подставляем депозит из куки, чтобы пользователю не надо было каждый раз выбирать его.
         if ($id === false and isset(Yii::$app->request->cookies['deposit']) and $type!=3) {
             $operations->deposit_id=Yii::$app->request->cookies['deposit']->value;
+        }
+        //Подставляем категорию расходов из куки.
+        if ($id === false and isset(Yii::$app->request->cookies['category']) and $type != 3) {
+            $operations->category_id = Yii::$app->request->cookies['category']->value;
         }
 
         //Решаем, на какую дату нам возвращаться в календаре
