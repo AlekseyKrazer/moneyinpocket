@@ -93,9 +93,9 @@ class MenuWidget extends Widget
 
                 //Записывает общее значение для родительской категории
                 foreach ($this->data as $k) {
-                    if ($k['parent_id'] == 0) {
+//                    if ($k['parent_id'] == 0) {
                         $total = $k['total'] + $total;
-                    }
+//                    }
                 }
                 break;
             case 'total-owe':
@@ -177,9 +177,9 @@ class MenuWidget extends Widget
         $this->menuHtml = $this->getMenuHtml($this->tree);
 
         if ($total < 0) {
-            $total = "Итого: <span style=\"color='red'\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
+            $total = "Итого: <span style=\"color:red\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
         } elseif ($total > 0) {
-            $total = "Итого: <span style=\"color='red'\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
+            $total = "Итого: <span style=\"color:green\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
         }
 
         return $this->menuHtml . $total;

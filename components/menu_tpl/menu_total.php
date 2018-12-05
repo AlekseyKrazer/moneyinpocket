@@ -15,9 +15,9 @@ use yii\helpers\Html;
         <div class="col-sm-4">
         <?php
         if ($category['total']<0) {
-            echo "<font color='red'>".Yii::$app->formatter->asCurrency($category['total'])."</font>";
+            echo "<span style=\"color:red\">" . Yii::$app->formatter->asCurrency($category['total']) . "</span>";
         } else {
-            echo "<font color='green'>".Yii::$app->formatter->asCurrency($category['total'])."</font>";
+            echo "<span style=\"color:green\">" . Yii::$app->formatter->asCurrency($category['total']) . "</span>";
         }
 
         ?>
