@@ -99,7 +99,7 @@ class AccountingController extends Controller
         if (isset($add_array) && $operations->load($add_array)) {
             if ($operations->save()) {
                 Yii::$app->session->setFlash('success', 'Операция успешно записана');
-                $this->yiiSetCookie("datetime", date("Y-m-d H:i", strtotime($add_array[$operations->formName()]['datetime'])), 120);
+	            //$this->yiiSetCookie("datetime", date("Y-m-d H:i", strtotime($add_array[$operations->formName()]['datetime'])), 120);
 
                 if (isset($add_array[$operations->formName()]['deposit_id'])) {
                     $this->yiiSetCookie("deposit", $add_array[$operations->formName()]['deposit_id'], 3600 * 24);
@@ -124,7 +124,7 @@ class AccountingController extends Controller
 
         //Решаем, на какую дату нам возвращаться в календаре
         if ($operations->datetime!='') {
-            $this->yiiSetCookie("datetime", date("Y-m-d H:i", strtotime($operations->datetime)), 120);
+	        //$this->yiiSetCookie("datetime", date("Y-m-d H:i", strtotime($operations->datetime)), 120);
             $datetime=$operations->datetime;
             $date = date("Y-m-d", strtotime($operations->datetime));
         } else {
