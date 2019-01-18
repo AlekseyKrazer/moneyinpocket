@@ -65,7 +65,12 @@ AppAsset::register($this);
         ]) ?>
         <?= Alert::widget() ?>
 
-        <?php if (in_array(Yii::$app->controller->getUniqueId(), ['accounting', 'deposit', 'categories'])) : ?>
+	    <?php if ( in_array( Yii::$app->controller->getUniqueId(), [
+		    'accounting',
+		    'deposit',
+		    'categories',
+		    'report'
+	    ] ) ) : ?>
         <div class="col-md-4">
 
             <?= Nav::widget([
@@ -78,7 +83,12 @@ AppAsset::register($this);
                     ['label' => 'Счета (места хранения денег)', 'url' => ['deposit/index', 'debt' => 0], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['deposit/index','deposit/update']) && Yii::$app->getRequest()->getQueryParam('debt') == 0,'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Доходы', 'url' => ['categories/index', 'type' => 2], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['categories/index', 'categories/update']) && Yii::$app->getRequest()->getQueryParam('type') == 2, 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Долги\Займы', 'url' => ['deposit/index', 'debt' => 1], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['deposit/index','deposit/update']) && Yii::$app->getRequest()->getQueryParam('debt') == 1, 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
-                    ['label' => 'Отчеты', 'url' => ['accounting/report'], 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
+	                [
+		                'label' => 'Отчеты',
+		                'url' => [ 'report/index' ],
+		                'linkOptions' => [ 'class' => 'list-group-item' ],
+		                'options' => [ 'class' => 'list-group-item' ]
+	                ],
                     // 'Products' menu item will be selected as long as the route is 'product/index'
 //            ['label' => 'Products', 'url' => ['product/index'], 'items' => [
 //                ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
