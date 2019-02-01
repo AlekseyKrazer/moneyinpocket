@@ -38,7 +38,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+	        [ 'label' => 'Home', 'url' => [ '/site/main' ] ],
             ['label' => 'Личный кабинет', 'url' => ['/accounting/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
