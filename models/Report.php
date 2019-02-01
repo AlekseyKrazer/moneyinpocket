@@ -32,6 +32,7 @@ class Report extends ActiveRecord {
 
 		$total = 0;
 		$i     = 0;
+		$data  = array();
 		foreach ( $sql_data as $k => $v ) {
 			$data[ $i ]['name'] = $v['category_name'];
 			$data[ $i ]['y']    = intval( abs( $v['amount'] ) );
