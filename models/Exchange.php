@@ -59,16 +59,16 @@ class Exchange extends \yii\db\ActiveRecord
     public static function getHistoryData($date)
     {
         $data = Exchange::find()
-            ->select(
+	        ->select(
                 ['exchange.id', 'exchange.date', 'exchange.datetime', 'exchange.amount', 'exchange.deposit_from', 'd.name as deposit_from_name',
                     'd.images as deposit_from_images', 'exchange.deposit_to', 'dd.name as deposit_to_name', 'dd.images as deposit_to_images',
                     'exchange.comment']
             )
-            ->join('INNER JOIN', 'deposits as d', '`exchange`.`deposit_from` = `d`.`id` AND `exchange`.`user_id` = `d`.`user_id`')
-            ->join('INNER JOIN', 'deposits as dd', '`exchange`.`deposit_to` = `dd`.`id` AND `exchange`.`user_id` = `dd`.`user_id`')
-            ->where(['date' => $date, 'exchange.user_id' => Yii::$app->user->id])
-            ->orderBy("datetime")
-            ->asArray()->all();
+	        ->join('INNER JOIN', 'deposits as d', '`exchange`.`deposit_from` = `d`.`id` AND `exchange`.`user_id` = `d`.`user_id`')
+	        ->join('INNER JOIN', 'deposits as dd', '`exchange`.`deposit_to` = `dd`.`id` AND `exchange`.`user_id` = `dd`.`user_id`')
+	        ->where(['date' => $date, 'exchange.user_id' => Yii::$app->user->id])
+	        ->orderBy( "datetime,id" )
+	        ->asArray()->all();
         return $data;
     }
 }
