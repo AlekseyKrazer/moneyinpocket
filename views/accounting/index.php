@@ -153,7 +153,7 @@ use yii\widgets\ActiveForm;
     ?>
 
 </div>
-
+    <BR><BR>
 </div>
 
 <div class="col-md-4">

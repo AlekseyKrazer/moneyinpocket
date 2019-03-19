@@ -99,6 +99,7 @@ AppAsset::register($this);
             ]);
 
             ?>
+            <BR><BR>
         </div>
         <?php endif; ?>
         <?= $content ?>
