@@ -59,7 +59,7 @@ class Operations extends \yii\db\ActiveRecord
     public static function getHistoryData($date, $type)
     {
         $data = Yii::$app->db->createCommand(
-	        "
+            "
               SELECT op.id, op.date, op.datetime, op.amount, op.deposit_id, dep.name as deposit_name, dep.images, op.category_id, 
               cat.name as category_name, op.comment 
               FROM operations op 
