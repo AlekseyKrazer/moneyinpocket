@@ -38,7 +38,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-	        [ 'label' => 'Home', 'url' => [ '/site/main' ] ],
+            [ 'label' => 'Главная', 'url' => [ '/site/main' ] ],
             ['label' => 'Личный кабинет', 'url' => ['/accounting/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
@@ -48,7 +48,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выход (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -65,12 +65,12 @@ AppAsset::register($this);
         ]) ?>
         <?= Alert::widget() ?>
 
-	    <?php if ( in_array( Yii::$app->controller->getUniqueId(), [
-		    'accounting',
-		    'deposit',
-		    'categories',
-		    'report'
-	    ] ) ) : ?>
+        <?php if (in_array(Yii::$app->controller->getUniqueId(), [
+            'accounting',
+            'deposit',
+            'categories',
+            'report'
+        ])) : ?>
         <div class="col-md-4">
 
             <?= Nav::widget([
@@ -83,12 +83,12 @@ AppAsset::register($this);
                     ['label' => 'Счета (места хранения денег)', 'url' => ['deposit/index', 'debt' => 0], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['deposit/index','deposit/update']) && Yii::$app->getRequest()->getQueryParam('debt') == 0,'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Доходы', 'url' => ['categories/index', 'type' => 2], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['categories/index', 'categories/update']) && Yii::$app->getRequest()->getQueryParam('type') == 2, 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
                     ['label' => 'Долги\Займы', 'url' => ['deposit/index', 'debt' => 1], 'active' => in_array(Yii::$app->controller->module->requestedRoute, ['deposit/index','deposit/update']) && Yii::$app->getRequest()->getQueryParam('debt') == 1, 'linkOptions' => ['class' => 'list-group-item'], 'options' => ['class' => 'list-group-item']],
-	                [
-		                'label' => 'Отчеты',
-		                'url' => [ 'report/index' ],
-		                'linkOptions' => [ 'class' => 'list-group-item' ],
-		                'options' => [ 'class' => 'list-group-item' ]
-	                ],
+                    [
+                        'label' => 'Отчеты',
+                        'url' => [ 'report/index' ],
+                        'linkOptions' => [ 'class' => 'list-group-item' ],
+                        'options' => [ 'class' => 'list-group-item' ]
+                    ],
                     // 'Products' menu item will be selected as long as the route is 'product/index'
 //            ['label' => 'Products', 'url' => ['product/index'], 'items' => [
 //                ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
