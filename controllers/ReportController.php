@@ -21,8 +21,4 @@ class ReportController extends \yii\web\Controller {
 
         return $this->render( 'index', compact( "model", "data" ) );
     }
-
-    public function actionFlatpickr() {
-        return $this->render( 'index', compact( "model", "data" ) );
-    }
 }
