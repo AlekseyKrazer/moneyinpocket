@@ -18,7 +18,7 @@ class ReportController extends \yii\web\Controller
 
         if (Yii::$app->request->post()) {
             $model->load(Yii::$app->request->post());
-            $data = Report::getDataChart(Yii::$app->request->post()['Report']['datetime'], Yii::$app->request->post()['Report']['type']);
+            $data = $model->getData($model);
         }
 
         return $this->render('index', compact("model", "data"));
