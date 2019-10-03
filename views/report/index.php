@@ -93,6 +93,9 @@ use yii\widgets\ActiveForm;
     }
 </script>
 <?php
+//print_r("<PRE>");
+//print_r($model);
+//print_r("</PRE>");
 ?>
 <div class="col-md-4">
     <h1>Отчеты</h1>
@@ -100,11 +103,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field( $model, "type" )->dropDownList( [
         1 => 'Расходы',
         2 => 'Доходы'
-    ], [ 'options' => [ 1 => [ 'Selected' => true ] ] ] ) ?>
+    ] ) ?>
     <?= $form->field( $model, "view" )->dropDownList( [
-        0 => 'Детально',
-        1 => 'По категориям'
-    ], [ 'options' => [ 1 => [ 'Selected' => true ] ] ] ) ?>
+        1 => 'По категориям',
+        0 => 'Детально'
+    ] ) ?>
     <?= $form->field( $model, "daterange" )->dropDownList( [
         'day'        => 'Этот день',
         'week'       => 'Эта неделя',
@@ -153,7 +156,7 @@ use yii\widgets\ActiveForm;
             type: 'pie'
         },
         title: {
-            text: 'Всего потрачено <?= Yii::$app->formatter->asCurrency( $data['total'] ) ?>'
+            text: 'Итого <?= Yii::$app->formatter->asCurrency( $data['total'] ) ?>'
         },
         tooltip: {
             valueDecimals: 2,
@@ -179,4 +182,7 @@ use yii\widgets\ActiveForm;
             data: <?= $data['data'] ?>
         }]
     });
+</script>
+<script>
+    changedate();
 </script>
