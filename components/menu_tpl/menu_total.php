@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 ?>
 <?php if ($category['total']!='' and $category['total']!=0) : ?>
-<?php if ($category['type'] == 'dep') : ?>
+    <?php if ($category['type'] == 'dep') : ?>
     <div class="col-sm-8">
-    <?= $tab ?>
-    <?php if (isset($category['images']) and $category['images'] != ''):
-        echo Html::img('@web/images/' . $category['images'], ['width' => 16]);
-    endif; ?>
-    <?= $category['name'] ?>
+        <?= $tab ?>
+        <?php if (isset($category['images']) and $category['images'] != '') :
+            echo Html::img('@web/images/' . $category['images'], ['width' => 16]);
+        endif; ?>
+        <?= $category['name'] ?>
     </div>
         <div class="col-sm-4">
         <?php
@@ -23,7 +23,7 @@ use yii\helpers\Html;
         ?>
         </div>
         <br>
-<?php endif; ?>
+    <?php endif; ?>
 <?php endif; ?>
 <?php if ($category['type'] == 'cat') : ?>
 <BR>
