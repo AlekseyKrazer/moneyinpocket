@@ -21,6 +21,8 @@ class ReportController extends \yii\web\Controller
             $data = $model->getData($model);
         }
 
-        return $this->render('index', compact("model", "data"));
+        $operation = $model->getLastYearOperation();
+
+        return $this->render('index', compact("model", "data", "operation"));
     }
 }

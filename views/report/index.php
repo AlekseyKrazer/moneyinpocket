@@ -12,6 +12,65 @@ use yii\widgets\ActiveForm;
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
 <script>
+    function showStat() {
+        var element_income, index, element_spend, element_total;
+        var selector = document.getElementById('stat_type');
+        var value = selector[selector.selectedIndex].value;
+        document.getElementById("income").style.visibility = "visible";
+
+        var elements_income = document.querySelectorAll('#income');
+        var elements_spend = document.querySelectorAll('#spend');
+        var elements_total = document.querySelectorAll('#total');
+
+        if (value == 1) {
+            for (index = 0; index < elements_income.length; index++) {
+                element_income = elements_income[index];
+                element_income.style.visibility = "collapse";
+            }
+
+            for (index = 0; index < elements_spend.length; index++) {
+                element_spend = elements_spend[index];
+                element_spend.style.visibility = "visible";
+            }
+            for (index = 0; index < elements_total.length; index++) {
+                element_total = elements_total[index];
+                element_total.style.visibility = "hidden";
+            }
+        }
+
+        if (value == 2) {
+            for (index = 0; index < elements_income.length; index++) {
+                element_income = elements_income[index];
+                element_income.style.visibility = "visible";
+            }
+
+            for (index = 0; index < elements_spend.length; index++) {
+                element_spend = elements_spend[index];
+                element_spend.style.visibility = "collapse";
+            }
+            for (index = 0; index < elements_total.length; index++) {
+                element_total = elements_total[index];
+                element_total.style.visibility = "hidden";
+            }
+        }
+
+        if (value == 3) {
+            for (index = 0; index < elements_income.length; index++) {
+                element_income = elements_income[index];
+                element_income.style.visibility = "visible";
+            }
+
+            for (index = 0; index < elements_spend.length; index++) {
+                element_spend = elements_spend[index];
+                element_spend.style.visibility = "visible";
+            }
+            for (index = 0; index < elements_total.length; index++) {
+                element_total = elements_total[index];
+                element_total.style.visibility = "visible";
+            }
+        }
+    }
+
     function formatDate(date, format = false) {
 
         var dd = date.getDate();
@@ -92,11 +151,7 @@ use yii\widgets\ActiveForm;
 
     }
 </script>
-<?php
-//print_r("<PRE>");
-//print_r($model);
-//print_r("</PRE>");
-?>
+
 <div class="col-md-4">
     <h1>Отчеты</h1>
     <?php $form = ActiveForm::begin( [ 'options' => [ 'style' => 'width: 100%;' ] ] ); ?>
@@ -140,14 +195,64 @@ use yii\widgets\ActiveForm;
     </div>
     <?= Html::submitButton( 'Составить отчет' ) ?>
     <?php ActiveForm::end(); ?>
+
+    <?php
+    if ($model->type==1) {
+        $class="text-danger";
+    } else {
+        $class="text-success";
+    }
+
+    if (isset($model->view) and $model->view==0) {
+        echo "<h4> Итого <span class='".$class."'>".Yii::$app->formatter->asCurrency($data['total'])."</span></h4>";
+
+        foreach ($data['data'] as $k=>$value) {
+            echo Html::img('@web/images/' . $value['deposit_image'], ['width' => 16, 'alt' => $value['deposit'], 'title' => $value['deposit']]) . "    ";
+            echo $value['category_name'] . "   ";
+            echo "<font size=4><span class='".$class."'>" . Yii::$app->formatter->asCurrency($value['amount']) . "</span></font>   ";
+            echo Yii::$app->formatter->asDate(strtotime($value['datetime']), 'php:d M H:i') . "<BR>";
+            echo $value['comment'] . "<BR>";
+        }
+    }
+    ?>
+    <div id="container" style="min-width: 500px; height: 400px; max-width: 700px; margin: 0 auto; float: left"></div>
 </div>
 
-<div class="col-md-4">
-    Табличка сводник с графиком
+<div style="margin-left: 82%;">
+    <div>
+    <select id="stat_type" onchange="showStat();">
+        <option value="1">Расходы</option>
+        <option value="2">Доходы</option>
+        <option value="3">Доходы+Расходы</option>
+    </select>
+    </div>
+    <?php
+    echo "<table>";
+    foreach ($operation as $k=>$v) {
+        $sum = 0;
+        $sum_class='';
+        $sum = $v['spend']+$v['income'];
+
+        if (!isset($v['income'])) {
+            $v['income']=0;
+        }
+        if (!isset($v['spend'])) {
+            $v['spend']=0;
+        }
+
+        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("01-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' style='visibility: hidden; color:#CCCCCC;'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
+        echo "<tr id='spend' style='visibility: visible;'><td><span class='text-danger'>Расход</span></td><td><span class='text-danger'>" . Yii::$app->formatter->asCurrency($v['spend']) . "</span></td></tr>";
+        echo "<tr id='income' style='visibility: collapse;'><td><span class='text-success'>Доход</span></td><td><span class='text-success'>" . Yii::$app->formatter->asCurrency($v['income']) . "</span></td></tr>";
+        echo "<tr><td>&nbsp;</td></tr>";
+
+    }
+    echo "</table>";
+    ?>
 </div>
-<div id="container" style="min-width: 500px; height: 400px; max-width: 700px; margin: 0 auto"></div>
+
+<!--Вывод по категориям-->
+<? if ($model->view == 1) { ?>
 <script>
-
     Highcharts.chart('container', {
         chart: {
             plotBackgroundColor: null,
@@ -183,6 +288,8 @@ use yii\widgets\ActiveForm;
         }]
     });
 </script>
+    <!--Вывод по категориям конец-->
+<?php } ?>
 <script>
     changedate();
 </script>
