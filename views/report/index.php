@@ -240,7 +240,7 @@ use yii\widgets\ActiveForm;
             $v['spend']=0;
         }
 
-        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("01-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' style='visibility: hidden; color:#CCCCCC;'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
+        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("02-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' style='visibility: hidden; color:#CCCCCC;'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
         echo "<tr id='spend' style='visibility: visible;'><td><span class='text-danger'>Расход</span></td><td><span class='text-danger'>" . Yii::$app->formatter->asCurrency($v['spend']) . "</span></td></tr>";
         echo "<tr id='income' style='visibility: collapse;'><td><span class='text-success'>Доход</span></td><td><span class='text-success'>" . Yii::$app->formatter->asCurrency($v['income']) . "</span></td></tr>";
         echo "<tr><td>&nbsp;</td></tr>";
