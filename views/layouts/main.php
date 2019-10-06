@@ -22,6 +22,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="shortcut icon" href="images/money.ico" type="image/x-icon">
 </head>
 <body>
 <?php $this->beginBody() ?>

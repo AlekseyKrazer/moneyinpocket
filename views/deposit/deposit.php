@@ -4,6 +4,7 @@ use app\components\MenuWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->title = 'Moneyinpocket';
 ?>
 <div class="col-md-4">
 

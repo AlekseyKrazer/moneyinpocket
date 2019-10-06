@@ -5,6 +5,7 @@ use bs\Flatpickr\FlatpickrWidget as Flatpickr;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->title = 'Отчеты - Moneyinpocket';
 ?>
 <script> var exports = {}; </script>
 <script src="https://code.highcharts.com/highcharts.js"></script>

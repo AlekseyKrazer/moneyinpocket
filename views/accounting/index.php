@@ -5,6 +5,7 @@ use bs\Flatpickr\FlatpickrWidget as Flatpickr;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->title = 'Ввод операций - Moneyinpocket';
 ?>
 <script> var exports = {}; </script>
 
