@@ -109,7 +109,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Moneyinpocket <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Moneyinpocket 2018 - <?= date('Y') ?></p>
 
         <p class="pull-right"><!-- Yandex.Metrika counter -->
             <script type="text/javascript" >
