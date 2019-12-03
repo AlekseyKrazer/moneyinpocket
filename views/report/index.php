@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 
 use bs\Flatpickr\FlatpickrWidget as Flatpickr;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +15,7 @@ $this->title = 'Отчеты - Moneyinpocket';
 
 <script>
     function showStat() {
-        var element_income, index, element_spend, element_total;
+        var element_income, index, element_spend, element_total, element_total_tr;
         var selector = document.getElementById('stat_type');
         var value = selector[selector.selectedIndex].value;
         document.getElementById("income").style.visibility = "visible";
@@ -22,6 +23,7 @@ $this->title = 'Отчеты - Moneyinpocket';
         var elements_income = document.querySelectorAll('#income');
         var elements_spend = document.querySelectorAll('#spend');
         var elements_total = document.querySelectorAll('#total');
+        var elements_total_tr = document.querySelectorAll('#total_tr');
 
         if (value == 1) {
             for (index = 0; index < elements_income.length; index++) {
@@ -36,6 +38,10 @@ $this->title = 'Отчеты - Moneyinpocket';
             for (index = 0; index < elements_total.length; index++) {
                 element_total = elements_total[index];
                 element_total.style.visibility = "hidden";
+            }
+            for (index = 0; index < elements_total_tr.length; index++) {
+                element_total_tr = elements_total_tr[index];
+                element_total_tr.style.visibility = "collapse";
             }
         }
 
@@ -53,6 +59,11 @@ $this->title = 'Отчеты - Moneyinpocket';
                 element_total = elements_total[index];
                 element_total.style.visibility = "hidden";
             }
+            for (index = 0; index < elements_total_tr.length; index++) {
+                element_total_tr = elements_total_tr[index];
+                element_total_tr.style.visibility = "collapse";
+            }
+
         }
 
         if (value == 3) {
@@ -68,6 +79,10 @@ $this->title = 'Отчеты - Moneyinpocket';
             for (index = 0; index < elements_total.length; index++) {
                 element_total = elements_total[index];
                 element_total.style.visibility = "visible";
+            }
+            for (index = 0; index < elements_total_tr.length; index++) {
+                element_total_tr = elements_total_tr[index];
+                element_total_tr.style.visibility = "visible";
             }
         }
     }
@@ -241,14 +256,32 @@ $this->title = 'Отчеты - Moneyinpocket';
             $v['spend']=0;
         }
 
-        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("02-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' style='visibility: hidden; color:#CCCCCC;'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
+        if ($sum<0) {
+            $class="text-danger";
+        } else {
+            $class="text-success";
+        }
+
+        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("02-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' class='".$class."' style='visibility: hidden;'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
+        echo "<tr id='total_tr' style='visibility: collapse;'><td>&nbsp;</td></tr>";
         echo "<tr id='spend' style='visibility: visible;'><td><span class='text-danger'>Расход</span></td><td><span class='text-danger'>" . Yii::$app->formatter->asCurrency($v['spend']) . "</span></td></tr>";
         echo "<tr id='income' style='visibility: collapse;'><td><span class='text-success'>Доход</span></td><td><span class='text-success'>" . Yii::$app->formatter->asCurrency($v['income']) . "</span></td></tr>";
         echo "<tr><td>&nbsp;</td></tr>";
 
     }
     echo "</table>";
+
+    Modal::begin([
+        'header' => '<h2>Hello world</h2>',
+        'toggleButton' => ['label' => 'click me'],
+        'footer' => 'Низ окна',
+    ]);
+
+    echo 'Say hello...';
+
+    Modal::end();
     ?>
+    <a href="#">Смотреть график</a>
 </div>
 
 <!--Вывод по категориям-->
