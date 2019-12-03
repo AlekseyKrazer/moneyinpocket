@@ -5,9 +5,39 @@ namespace app\controllers;
 use app\models\Categories;
 use app\models\Operations;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class CategoriesController extends \yii\web\Controller
 {
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex($type = 1)
     {
