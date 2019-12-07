@@ -158,10 +158,136 @@ $this->title = 'Ввод операций - Moneyinpocket';
 </div>
 
 <div class="col-md-4">
-    <?=MenuWidget::widget(['tpl' => 'menu_total', 'source' => 'total-deposit']) ?>
-    <h4>Мне должны:</h4>
-    <?= MenuWidget::widget(['tpl' => 'menu_total', 'source' => 'total-owe']) ?>
-    <h4>Я должен</h4>
-    <?= MenuWidget::widget(['tpl' => 'menu_total', 'source' => 'total-debt']) ?>
-
+    <div id="total-deposit-show">
+        <?=MenuWidget::widget(['tpl' => 'menu_total', 'source' => 'total-deposit']) ?>
+    </div>
+    <BR>
+    <a onclick="show_main_category('total-owe-show')" style="cursor: pointer; color: black; font-size: 18px; font-weight: 500;">Мне должны:</a>
+    <div id="total-owe-show" style="display:none;">
+        <?= MenuWidget::widget(['tpl' => 'menu_total', 'source' => 'total-owe']) ?>
+    </div>
+    <BR>
+    <a onclick="show_main_category('total-debt-show')" style="cursor: pointer; color: black; font-size: 18px; font-weight: 500;">Я должен:</a>
+    <div id="total-debt-show" style="display:none;">
+        <?= MenuWidget::widget(['tpl' => 'menu_total', 'source' => 'total-debt']) ?>
+    </div>
+<BR><BR>
+    ИТОГО: <span id="final-total"></span>
 </div>
+
+<script>
+
+function formatCurrency(sum) {
+
+    var format_sum = new Intl.NumberFormat("ru-RU", { style: 'currency', currency: 'RUB' }).format(sum);
+    return format_sum;
+}
+
+function show_main_category(id) {
+    var element = document.getElementById(id);
+
+
+    if (element!= null) {
+        if (element.style.display != 'none') {
+            element.style.display = "none";
+        } else {
+            element.style.display = "block";
+        }
+        recalc();
+    }
+}
+
+function recalc() {
+    var final_total = document.getElementById("final-total");
+
+
+    var total_debt = document.getElementById("total-debt-show");
+    var total_debt_sum = 0;
+
+
+    var total_debt_data = total_debt.querySelectorAll('[id^="total-debt dep_"]');
+    for (var i = 0; i < total_debt_data.length; i++) {
+        total_debt_sum = total_debt_sum + parseFloat(total_debt_data[i].textContent);
+    }
+    var todel_debt = document.getElementById('total-debt-temp-total');
+
+    if (total_debt.style.display == "none") {
+        if (todel_debt == null) {
+            total_debt.insertAdjacentHTML("beforebegin", "<span id='total-debt-temp-total' style='display: inline'>(" + formatCurrency(total_debt_sum) + ")</span>");
+        }
+        total_debt_sum = 0;
+    } else {
+        if (todel_debt != null) {
+            todel_debt.remove();
+        }
+    }
+
+
+    var total_owe = document.getElementById("total-owe-show");
+    var total_owe_sum = 0;
+    var total_owe_data = total_owe.querySelectorAll('[id^="total-owe dep_"]');
+
+    for (var i = 0; i < total_owe_data.length; i++) {
+        total_owe_sum = total_owe_sum + parseFloat(total_owe_data[i].textContent);
+    }
+
+    var todel_owe = document.getElementById('total-owe-temp-total');
+    if (total_owe.style.display == "none") {
+        if (todel_owe == null) {
+            total_owe.insertAdjacentHTML("beforebegin", "<span id='total-owe-temp-total'>(" + formatCurrency(total_owe_sum) + ")</span>");
+        }
+        total_owe_sum = 0;
+    } else {
+        if (todel_owe != null) {
+            todel_owe.remove();
+        }
+    }
+
+    var total_deposit_sum = 0;
+    var total_deposit_all_sum = 0;
+    var total_deposit_hide_cat_sum = 0;
+    var total_deposit = document.getElementById("total-deposit-show");
+
+    var all_deposit = total_deposit.querySelectorAll('[id^="total-deposit dep_"]');
+
+    for (var i = 0; i < all_deposit.length; i++) {
+        total_deposit_all_sum = total_deposit_all_sum + parseFloat(all_deposit[i].textContent);
+    }
+
+    var total_deposit_categories = total_deposit.querySelectorAll('[id^="category_"]');
+    for (var num = 0; num < total_deposit_categories.length; num++) {
+        var category_deposit = total_deposit_categories[num].querySelectorAll('[id^="total-deposit dep_"]');
+        if (category_deposit.length>0) {
+            var category_deposit_sum = 0;
+            for (var i = 0; i < category_deposit.length; i++) {
+                if (total_deposit_categories[num].style.display == "none") {
+                    total_deposit_hide_cat_sum = total_deposit_hide_cat_sum + parseFloat(category_deposit[i].textContent);
+                }
+                category_deposit_sum = category_deposit_sum + parseFloat(category_deposit[i].textContent);
+            }
+            var todel_deposit = document.getElementById("total_sum_" + total_deposit_categories[num].id);
+            if (total_deposit_categories[num].style.display == "none") {
+                if (todel_deposit == null) {
+                    total_deposit_categories[num].insertAdjacentHTML("beforebegin", "<span id='total_sum_" + total_deposit_categories[num].id + "'>(" + formatCurrency(category_deposit_sum) + ")</span>");
+                }
+            } else {
+                if (todel_deposit != null) {
+                    todel_deposit.remove();
+                }
+            }
+        }
+    }
+    total_deposit_sum = parseFloat(Number(total_deposit_all_sum-total_deposit_hide_cat_sum).toFixed(2));
+
+    var final_sum = total_debt_sum + total_owe_sum + total_deposit_sum;
+
+    if (final_sum>0) {
+        final_sum = "<span style=\"color:green\">" + formatCurrency(final_sum) + "</span>";
+    } else {
+        final_sum = "<span style=\"color:red\">" + formatCurrency(final_sum) + "</span>";
+    }
+
+    final_total.innerHTML=final_sum;
+}
+recalc();
+</script>

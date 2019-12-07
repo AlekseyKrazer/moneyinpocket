@@ -19,6 +19,7 @@ use yii\helpers\Html;
         } else {
             echo "<span style=\"color:green\">" . Yii::$app->formatter->asCurrency($category['total']) . "</span>";
         }
+        echo "<span id='".$this->source." ".$category['id']."' style='display:none'>".$category['total']."</span>";
 
         ?>
         </div>
@@ -27,11 +28,14 @@ use yii\helpers\Html;
 <?php endif; ?>
 <?php if ($category['type'] == 'cat') : ?>
 <BR>
+
     <div class="col-sm-7">
-    <b><?= $tab . $category['name'] ?></b>
+        <b><a onclick="show_main_category('category_<?= $category['id'] ?>')" style="cursor: pointer; color: black"><?= $tab . $category['name'] ?></a></b>
     </div>
     <br>
-<?php endif; ?>
-<?php if (isset($category['childs'])) : ?>
-    <?= $this->getMenuHtml($category['childs'], $tab . "&nbsp;&#9;&nbsp;&#9;&nbsp;&#9;") ?>
+    <?php if (isset($category['childs'])) : ?>
+        <span id="category_<?= $category['id'] ?>">
+        <?= $this->getMenuHtml($category['childs'], $tab . "&nbsp;&#9;&nbsp;&#9;&nbsp;&#9;") ?>
+        </span>
+    <?php endif; ?>
 <?php endif; ?>

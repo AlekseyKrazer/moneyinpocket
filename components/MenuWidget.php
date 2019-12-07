@@ -38,8 +38,6 @@ class MenuWidget extends Widget
 
     public function run()
     {
-        $total = '';
-
         /**
         Выгружаем данные из источника source.
         Если выгрузки не происходит, значит данные должны передаваться сразу в data при инициализации виджета.
@@ -65,9 +63,9 @@ class MenuWidget extends Widget
             case 'total-deposit':
                 $this->data = Yii::$app->db->createCommand(
                     "Select * from 
-                                (SELECT  CONCAT('dep_',id) as id, `name`, `group_id` as parent_id, images, 'dep' as type from deposits WHERE debt=0
+                                (SELECT  CONCAT('dep_',id) as id, `name`, `group_id` as parent_id, images, 'dep' as type, hide from deposits WHERE debt=0 and user_id=" . Yii::$app->user->id . "
                                 UNION
-                                SELECT id, name, parent_id, '' as images, 'cat' as type from groups WHERE debt=0) as one
+                                SELECT id, name, parent_id, '' as images, 'cat' as type, collapse as hide from groups WHERE debt=0 and user_id=" . Yii::$app->user->id . ") as one
                                 
                                 LEFT JOIN
                                 
@@ -90,20 +88,13 @@ class MenuWidget extends Widget
                                 ON one.id=two.deposit_id"
                 )->queryAll();
                 $this->data = ArrayHelper::index($this->data, "id");
-
-                //Записывает общее значение для родительской категории
-                foreach ($this->data as $k) {
-//                    if ($k['parent_id'] == 0) {
-                        $total = $k['total'] + $total;
-//                    }
-                }
                 break;
             case 'total-owe':
                 $this->data = Yii::$app->db->createCommand(
                     "Select * from 
-                                      (SELECT  CONCAT('dep_',id) as id, `name`, `group_id` as parent_id, images, 'dep' as type from deposits WHERE debt=1
+                                      (SELECT  CONCAT('dep_',id) as id, `name`, `group_id` as parent_id, images, 'dep' as type, hide from deposits WHERE debt=1 and user_id=" . Yii::$app->user->id . "
                                       UNION
-                                      SELECT id, name, parent_id, '' as images, 'cat' as type from groups WHERE debt=1) as one
+                                      SELECT id, name, parent_id, '' as images, 'cat' as type, collapse as hide from groups WHERE debt=1 and user_id=" . Yii::$app->user->id . ") as one
                                       LEFT JOIN
                                       (Select SUM(total) as total,CONCAT('dep_',deposit_id) as deposit_id from 
                                           (Select SUM(total) as total, deposit as deposit_id 
@@ -126,17 +117,14 @@ class MenuWidget extends Widget
                                           ) as b 
                                             GROUP by deposit_id) as two ON one.id=two.deposit_id WHERE total>0 or total IS NULL"
                 )->queryAll();
-                foreach ($this->data as $k) {
-                    $total = $k['total'] + $total;
-                }
                 $this->data = ArrayHelper::index($this->data, "id");
                 break;
             case 'total-debt':
                 $this->data = Yii::$app->db->createCommand(
                     "Select * from 
-                                  (SELECT  CONCAT('dep_',id) as id, `name`, `group_id` as parent_id, images, 'dep' as type from deposits WHERE debt=1
+                                  (SELECT  CONCAT('dep_',id) as id, `name`, `group_id` as parent_id, images, 'dep' as type, hide from deposits WHERE debt=1 and user_id=" . Yii::$app->user->id . "
                                   UNION
-                                  SELECT id, name, parent_id, '' as images, 'cat' as type from groups WHERE debt=1) as one
+                                  SELECT id, name, parent_id, '' as images, 'cat' as type, collapse as hide from groups WHERE debt=1 and user_id=" . Yii::$app->user->id . ") as one
                                   LEFT JOIN
                                   (Select SUM(total) as total,CONCAT('dep_',deposit_id) as deposit_id from 
                                       (Select SUM(total) as total, deposit as deposit_id 
@@ -160,9 +148,6 @@ class MenuWidget extends Widget
                                         GROUP by deposit_id) as two ON one.id=two.deposit_id WHERE total<0 OR total is NULL"
                 )->queryAll();
 
-                foreach ($this->data as $k) {
-                    $total = $k['total'] + $total;
-                }
                 $this->data = ArrayHelper::index($this->data, "id");
                 break;
             case 'groups-debt':
@@ -176,13 +161,7 @@ class MenuWidget extends Widget
 
         $this->menuHtml = $this->getMenuHtml($this->tree);
 
-        if ($total < 0) {
-            $total = "Итого: <span style=\"color:red\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
-        } elseif ($total > 0) {
-            $total = "Итого: <span style=\"color:green\">" . Yii::$app->formatter->asCurrency($total) . "</span>";
-        }
-
-        return $this->menuHtml . $total;
+        return $this->menuHtml;
     }
 
     /**
