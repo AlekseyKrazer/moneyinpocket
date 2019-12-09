@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "groups".
  *
@@ -48,6 +46,8 @@ class Groups extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'position' => 'Position',
             'debt' => 'Debt',
+            'hide' => 'Не показывать в общем списке',
+            'collapse' => 'Показывать в свернутом виде',
         ];
     }
 }

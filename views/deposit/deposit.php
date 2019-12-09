@@ -46,9 +46,29 @@ $this->title = 'Moneyinpocket';
     ], ['encode' => false]) ?>
     <?= $form->field($deposit, 'start_sum') ?>
     <?= $form->field($deposit, 'position') ?>
+    <?= $form->field($deposit, 'hide')->checkbox() ?>
     <?= Html::submitButton($lang['button']) ?>
     <?php ActiveForm::end() ?>
     <br>
+
+    <?php if (in_array(Yii::$app->controller->module->requestedRoute, ['deposit/update'])): ?>
+        <h3>Перенос</h3>
+        <?php $form = ActiveForm::begin(); ?>
+        <label class="control-label" for="operations-deposit_id">Откуда переносим</label>
+        <select id="operations-deposit_id" class="form-control" name="Transfer[deposit_from]" aria-required="true">
+            <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit', 'model' => $deposit]); ?>
+        </select><BR>
+        Операций <?= $arr_count['count_operations'] ?> <BR>
+        Операций обмена <?= $arr_count['count_exchange'] ?> <BR>
+        <label class="control-label" for="operations-deposit_id">Куда переносим?</label>
+        <select id="operations-deposit_id" class="form-control" name="Transfer[deposit_to]" aria-required="true">
+            <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit']); ?>
+        </select><BR>
+        <?= Html::submitButton('Перенести') ?>
+        <?php ActiveForm::end() ?>
+    <?php endif; ?>
+    <BR>
+
     <h3>Создание групп</h3>
     <?php $form = ActiveForm::begin(['options' => ['style' => 'width: 100%;', 'autocomplete' => 'off']]); ?>
     <?= $form->field($groups, 'name') ?>
@@ -61,23 +81,9 @@ $this->title = 'Moneyinpocket';
     <?= $form->field($groups, "user_id")->hiddenInput(['value' => 1])->label(false) ?>
     <?= $form->field($groups, "debt")->hiddenInput(['value' => $debt])->label(false) ?>
     <?= $form->field($groups, 'position') ?>
+    <?= $form->field($groups, 'hide')->checkbox() ?>
+    <?= $form->field($groups, 'collapse')->checkbox() ?>
     <?= Html::submitButton('Создать группу') ?>
     <?php ActiveForm::end() ?>
     <br>
-    <?php if (in_array(Yii::$app->controller->module->requestedRoute, ['deposit/update'])): ?>
-    <h3>Перенос</h3>
-    <?php $form = ActiveForm::begin(); ?>
-    <label class="control-label" for="operations-deposit_id">Откуда переносим</label>
-    <select id="operations-deposit_id" class="form-control" name="Transfer[deposit_from]" aria-required="true">
-        <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit', 'model' => $deposit]); ?>
-    </select><BR>
-    Операций <?= $arr_count['count_operations'] ?> <BR>
-        Операций обмена <?= $arr_count['count_exchange'] ?> <BR>
-    <label class="control-label" for="operations-deposit_id">Куда переносим?</label>
-    <select id="operations-deposit_id" class="form-control" name="Transfer[deposit_to]" aria-required="true">
-        <?= MenuWidget::widget(['tpl' => 'select_comb', 'source' => 'deposit']); ?>
-    </select><BR>
-        <?= Html::submitButton('Перенести') ?>
-    <?php ActiveForm::end() ?>
-    <?php endif; ?>
 </div>

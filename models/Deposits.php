@@ -33,6 +33,7 @@ class Deposits extends \yii\db\ActiveRecord
         return [
             [['name', 'group_id', 'user_id'], 'required'],
             [['start_sum'], 'number'],
+            [['hide'], 'number'],
             [['group_id', 'user_id', 'position', 'debt'], 'integer'],
             [['name'], 'string', 'max' => 150],
             [['images'], 'string', 'max' => 255],
@@ -53,24 +54,25 @@ class Deposits extends \yii\db\ActiveRecord
             'position' => 'Position',
             'start_sum' => 'Начальный капитал',
             'debt' => 'Debt',
+            'hide' => 'Не показывать в общем списке',
         ];
     }
 
     public static function getAllDepositWithoutDebt()
     {
         $dep = Yii::$app->db->createCommand(
-            'SELECT  CONCAT(\'dep_\',id) as id, `name`, `group_id` as parent_id, images, \'dep\' as type from deposits WHERE debt=0
+            'SELECT  CONCAT(\'dep_\',id) as id, `name`, `group_id` as parent_id, images, \'dep\' as type, hide from deposits WHERE debt=0
                                                   UNION
-                                                  SELECT id, name, parent_id, \'\' as images, \'cat\' as type from groups WHERE debt=0'
+                                                  SELECT id, name, parent_id, \'\' as images, \'cat\' as type, hide from groups WHERE debt=0'
         )->queryAll();
         return $dep;
     }
     public static function getAllDepositWithDebt()
     {
         $debt = Yii::$app->db->createCommand(
-            'SELECT  CONCAT(\'dep_\',id) as id, `name`, `group_id` as parent_id, images, \'dep\' as type from deposits WHERE debt=1
+            'SELECT  CONCAT(\'dep_\',id) as id, `name`, `group_id` as parent_id, images, \'dep\' as type, hide from deposits WHERE debt=1
                                                   UNION
-                                                  SELECT id, name, parent_id, \'\' as images, \'cat\' as type from groups WHERE debt=1'
+                                                  SELECT id, name, parent_id, \'\' as images, \'cat\' as type, hide from groups WHERE debt=1'
         )->queryAll();
         return $debt;
     }

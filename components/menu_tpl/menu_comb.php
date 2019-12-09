@@ -5,10 +5,16 @@ use yii\helpers\Html;
 ?>
 <?php if ($category['type'] == 'dep') : ?>
     <?= $tab ?>
-    <?php if (isset($category['images']) and $category['images'] != ''):
+    <?php if (isset($category['images']) and $category['images'] != '') :
         echo Html::img('@web/images/' . $category['images'], ['width' => 16]);
     endif; ?>
-    <a href="<?= \yii\helpers\Url::to(['deposit/update', 'id' => $category['id'], 'debt' => $this->debt]) ?>"><?= $category['name'] ?></a>
+    <a href="<?= \yii\helpers\Url::to(['deposit/update', 'id' => $category['id'], 'debt' => $this->debt]) ?>"
+    <?php if ($category['hide'] == 1) :
+        echo " style='color: rgb(204, 204, 204)' ";
+    endif; ?>
+    >
+        <?= $category['name'] ?>
+    </a>
     <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete', 'id' => $category['id'], 'debt' => $this->debt], [
         'data' => [
             'confirm' => 'Вы действительно хотите удалить?',
