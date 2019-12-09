@@ -1,22 +1,24 @@
-<?php if ($category['type'] == 'dep') : ?>
-    <option value="<?= $category['id'] ?>"
-        <?php if (isset($this->model->deposit_id)) {
-            if ($category['id'] == "dep_" . $this->model->deposit_id) {
-                echo "selected";
+<?php if ($category['hide']!=1) : ?>
+    <?php if ($category['type'] == 'dep') : ?>
+        <option value="<?= $category['id'] ?>"
+            <?php if (isset($this->model->deposit_id)) {
+                if ($category['id'] == "dep_" . $this->model->deposit_id) {
+                    echo "selected";
+                }
             }
-        }
-        if (isset($this->model->deposit_from)) {
-            if ($category['id'] == "dep_" .$this->model->deposit_from) {
-                echo "selected";
+            if (isset($this->model->deposit_from)) {
+                if ($category['id'] == "dep_" .$this->model->deposit_from) {
+                    echo "selected";
+                }
             }
-        }
-        if (isset($this->model->id)) {
-            if ($category['id'] == "dep_" . $this->model->id) {
-                echo "selected";
+            if (isset($this->model->id)) {
+                if ($category['id'] == "dep_" . $this->model->id) {
+                    echo "selected";
+                }
             }
-        }
-        ?>
-    ><?= $tab .$category['name'] ?></option>
+            ?>
+        ><?= $tab .$category['name'] ?></option>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($category['type']=='cat') : ?>
