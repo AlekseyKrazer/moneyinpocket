@@ -29,7 +29,7 @@ class Groups extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['parent_id', 'user_id', 'position', 'debt'], 'integer'],
+            [['parent_id', 'user_id', 'position', 'debt', 'hide','collapse'], 'integer'],
             [['name'], 'string', 'max' => 100],
         ];
     }

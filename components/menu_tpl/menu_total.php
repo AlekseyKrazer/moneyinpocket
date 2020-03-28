@@ -26,7 +26,7 @@ use yii\helpers\Html;
         <br>
     <?php endif; ?>
 <?php endif; ?>
-<?php if ($category['type'] == 'cat') : ?>
+<?php if ($category['type'] == 'cat' and $category['hide']!=1) : ?>
 <BR>
     <div class="col-sm-7">
         <b><a onclick="show_main_category('category_<?= $category['id'] ?>')" style="cursor: pointer; color: black"><?= $tab . $category['name'] ?></a></b>
@@ -37,4 +37,7 @@ use yii\helpers\Html;
         <?= $this->getMenuHtml($category['childs'], $tab . "&nbsp;&#9;&nbsp;&#9;&nbsp;&#9;") ?>
         </span>
     <?php endif; ?>
+<?php if ($category['collapse']==1) : ?>
+    <script>show_main_category('category_' + <?= $category['id'] ?>);</script>
+<?php endif; ?>
 <?php endif; ?>

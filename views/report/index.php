@@ -246,7 +246,6 @@ $this->title = 'Отчеты - Moneyinpocket';
     echo "<table>";
     foreach ($operation as $k=>$v) {
         $sum = 0;
-        $sum_class='';
         $sum = $v['spend']+$v['income'];
 
         if (!isset($v['income'])) {
@@ -256,14 +255,7 @@ $this->title = 'Отчеты - Moneyinpocket';
             $v['spend']=0;
         }
 
-        if ($sum<0) {
-            $class="text-danger";
-        } else {
-            $class="text-success";
-        }
-
-        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("02-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' class='".$class."' style='visibility: hidden;'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
-        echo "<tr id='total_tr' style='visibility: collapse;'><td>&nbsp;</td></tr>";
+        echo "<tr><td>В ".Yii::$app->formatter->asDate(strtotime("02-".$v['date_month_year']), 'php:M Y').": </td><td><span id='total' style='visibility: hidden; color: rgb(204, 204, 204);'>".Yii::$app->formatter->asCurrency($sum)."</span></td></tr>";
         echo "<tr id='spend' style='visibility: visible;'><td><span class='text-danger'>Расход</span></td><td><span class='text-danger'>" . Yii::$app->formatter->asCurrency($v['spend']) . "</span></td></tr>";
         echo "<tr id='income' style='visibility: collapse;'><td><span class='text-success'>Доход</span></td><td><span class='text-success'>" . Yii::$app->formatter->asCurrency($v['income']) . "</span></td></tr>";
         echo "<tr><td>&nbsp;</td></tr>";

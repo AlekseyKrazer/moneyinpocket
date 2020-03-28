@@ -72,6 +72,26 @@ class DepositController extends \yii\web\Controller
         return $this->render('deposit', compact('groups', 'deposit', 'debt', 'lang'));
     }
 
+    public function actionGroupUpdate($id, $debt =0)
+    {
+        $groups = Groups::find()->where(['id' => $id])->one();
+
+        if ($groups->load(Yii::$app->request->post())) {
+            if ($groups->save()) {
+                Yii::$app->session->setFlash('success', 'Группа успешна обновлена');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Error!');
+            }
+        }
+
+
+        $deposit_action = new DepositAction($debt);
+        $lang = $deposit_action->getParams();
+
+        return $this->render('update_group', compact('groups', 'debt', 'lang'));
+    }
+
     public function actionUpdate($id, $debt = 0)
     {
         $groups = new Groups();

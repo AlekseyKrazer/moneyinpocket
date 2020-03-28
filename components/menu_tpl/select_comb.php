@@ -21,7 +21,7 @@
     <?php endif; ?>
 <?php endif; ?>
 
-<?php if ($category['type']=='cat') : ?>
+<?php if ($category['type']=='cat' and $category['hide']!=1) : ?>
     <optgroup label="<?= $tab.$category['name'] ?>">
 <?php endif; ?>
 

@@ -24,6 +24,8 @@ use yii\helpers\Html;
 <?php endif; ?>
 <?php if ($category['type'] == 'cat') : ?>
     <b><?= $tab . $category['name'] ?></b>
+            <?= Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['group-update', 'id' => $category['id'], 'debt' => $this->debt], [
+        ]) ?>
     <!--        --><? //= Html::a('<span class="glyphicon glyphicon-remove"></span>', [$this->source.'-delete', 'id' => $category['id']], [
 //            'data' => [
 //                'confirm' => 'Вы действительно хотите удалить?',
