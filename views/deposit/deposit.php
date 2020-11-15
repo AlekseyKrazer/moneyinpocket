@@ -43,6 +43,7 @@ $this->title = 'Moneyinpocket';
             'yellow-credit-card.png' => Html::img('@web/images/yellow-credit-card.png', ['width'=>16]),
             'sberbank.ico' => Html::img('@web/images/sberbank.ico', ['width'=>16]),
             'piggy-bank.png' => Html::img('@web/images/piggy-bank.png', ['width'=>16]),
+            'moex.png' => Html::img('@web/images/moex.png', ['width'=>16]),
     ], ['encode' => false]) ?>
     <?= $form->field($deposit, 'start_sum') ?>
     <?= $form->field($deposit, 'position') ?>

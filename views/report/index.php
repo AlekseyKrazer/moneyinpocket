@@ -9,9 +9,10 @@ use yii\widgets\ActiveForm;
 $this->title = 'Отчеты - Moneyinpocket';
 ?>
 <script> var exports = {}; </script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 
 <script>
     function showStat() {
@@ -265,15 +266,15 @@ $this->title = 'Отчеты - Moneyinpocket';
 
     Modal::begin([
         'header' => '<h2>Hello world</h2>',
-        'toggleButton' => ['label' => 'click me'],
+        'size'=>'modal-lg',
+        'toggleButton' => ['label' => 'Смотреть график'],
         'footer' => 'Низ окна',
     ]);
 
     echo 'Say hello...';
-
+    echo '<div id="container2" style="height: 400px; min-width: 310px"></div>';
     Modal::end();
     ?>
-    <a href="#">Смотреть график</a>
 </div>
 
 <!--Вывод по категориям-->
@@ -318,4 +319,88 @@ $this->title = 'Отчеты - Moneyinpocket';
 <?php } ?>
 <script>
     changedate();
+</script>
+<script>
+    var seriesOptions = [];
+
+    /**
+     * Create the chart when all data is loaded
+     * @returns {undefined}
+     */
+    function createChart() {
+
+        Highcharts.stockChart('container2', {
+
+            rangeSelector: {
+                selected: 1,
+                buttons: [ {
+                    type: 'year',
+                    count: 1,
+                    text: '1y'
+                }, {
+                    type: 'year',
+                    count: 3,
+                    text: '3y'
+                }, {
+                    type: 'year',
+                    count: 5,
+                    text: '5y'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }]
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+                valueDecimals: 0,
+            },
+
+            series: seriesOptions
+        });
+    }
+
+
+
+
+    seriesOptions[0] = {
+        name: "Доход",
+        type: "area",
+        color: "green",
+        data: <?= $operation_all_data['income'] ?>,
+        fillColor: {
+        linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1
+        },
+        stops: [
+            [0, Highcharts.getOptions().colors[2]],
+            [1, Highcharts.color(Highcharts.getOptions().colors[2]).setOpacity(0).get('rgba')]
+        ]
+        }
+    }
+    createChart();
+
+    seriesOptions[1] = {
+        name: "Расход",
+        color: "red",
+        data: <?= $operation_all_data['outcome'] ?>,
+        type: "area",
+        fillColor: {
+            linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+            },
+            stops: [
+                [0, Highcharts.getOptions().colors[5]],
+                [1, Highcharts.color(Highcharts.getOptions().colors[5]).setOpacity(0).get('rgba')]
+            ]
+        }
+    }
+    createChart();
+
 </script>

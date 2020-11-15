@@ -155,6 +155,75 @@ SELECT spend.date_month_year, income, spend FROM
         return $sql_data;
     }
 
+    //Выясняем первую и последнюю дату с записями по доходам-расходам
+    protected function getFirstAndLastDate()
+    {
+        $sql_data = Yii::$app->db->createCommand("
+        (SELECT DATE_FORMAT(date, '%Y-%m-01') as date FROM `operations` WHERE user_id=".Yii::$app->user->id." ORDER by date ASC LIMIT 1)
+        UNION
+        (SELECT DATE_FORMAT(date, '%Y-%m-01') as date FROM `operations` WHERE user_id=".Yii::$app->user->id." ORDER by date DESC LIMIT 1)")->queryAll();
+
+        return $sql_data;
+    }
+
+    protected function formatToHighcharts($array)
+    {
+        $dates = $this->getFirstAndLastDate();
+
+        $from_date = $dates[0]['date'];
+        $to_date = $dates[1]['date'];
+        while ($from_date!=$to_date) {
+                $is_exist = 0;
+            foreach ($array as $key => $value) {
+                if ($value['month'] == $from_date) {
+                    $is_exist = 1;
+                }
+            }
+            if ($is_exist == 0) {
+                array_push($array, ['money'=>0, 'month' => $from_date]);
+            }
+            $time = strtotime($from_date);
+            $from_date = date("Y-m-d", strtotime("+1 month", $time));
+        }
+
+
+        $array_sort = array_column($array, 'month');
+
+        array_multisort($array_sort, SORT_ASC, $array);
+
+        $array_to_highchart = [];
+        foreach ($array as $k => $v) {
+            date_default_timezone_set('UTC');
+            $array_to_highchart[] = [strtotime($array[$k]['month'])*1000, intval(abs($array[$k]['money']))];
+        }
+
+        return $array_to_highchart;
+    }
+
+    public function getAllOperations()
+    {
+        $outcome_data = Yii::$app->db->createCommand("SELECT SUM(amount) as money, DATE_FORMAT(date, '%Y-%m-01') as month 
+                                                          FROM operations 
+                                                          WHERE user_id=".Yii::$app->user->id." and type=1 
+                                                          GROUP by DATE_FORMAT(date, '%Y-%m-01') 
+                                                          ORDER by DATE_FORMAT(date, '%Y-%m-01') ASC")->queryAll();
+
+        $income_data = Yii::$app->db->createCommand("SELECT SUM(amount) as money, DATE_FORMAT(date, '%Y-%m-01') as month 
+                                                          FROM operations 
+                                                          WHERE user_id=".Yii::$app->user->id." and type=2 
+                                                          GROUP by DATE_FORMAT(date, '%Y-%m-01') 
+                                                          ORDER by DATE_FORMAT(date, '%Y-%m-01') ASC")->queryAll();
+
+        $income_data = $this->formatToHighcharts($income_data);
+        $outcome_data = $this->formatToHighcharts($outcome_data);
+
+        $operations_all_data = ["income" => json_encode($income_data), "outcome" => json_encode($outcome_data)];
+
+        return $operations_all_data;
+    }
+
+
+
     /**
      * @return array the validation rules.
      */
