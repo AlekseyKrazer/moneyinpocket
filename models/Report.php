@@ -139,14 +139,14 @@ SELECT spend.date_month_year, income, spend FROM
     
         (SELECT DATE_FORMAT(date, '%m-%Y') as date_month_year, SUM(amount) as income 
         FROM `operations` 
-        WHERE user_id=".Yii::$app->user->id." AND amount>0 and date>=DATE_SUB(curdate(), INTERVAL 11 MONTH) 
+        WHERE user_id=".Yii::$app->user->id." AND amount>0 and date>=DATE_SUB(DATE_FORMAT(curdate(), '%Y-%m-01'), INTERVAL 11 MONTH) 
         GROUP by MONTH(date) ORDER by date ASC) as income
         
         RIGHT JOIN
         
         (SELECT DATE_FORMAT(date, '%m-%Y') as date_month_year, SUM(amount) as spend 
         FROM `operations` 
-        WHERE user_id=".Yii::$app->user->id." AND amount<0 and date>=DATE_SUB(curdate(), INTERVAL 11 MONTH) 
+        WHERE user_id=".Yii::$app->user->id." AND amount<0 and date>=DATE_SUB(DATE_FORMAT(curdate(), '%Y-%m-01'), INTERVAL 11 MONTH) 
         GROUP by MONTH(date) ORDER by date ASC) as spend 
         
         ON income.date_month_year=spend.date_month_year
