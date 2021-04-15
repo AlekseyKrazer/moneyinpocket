@@ -36,6 +36,7 @@ $this->title = 'Moneyinpocket';
             'folder.png' => Html::img('@web/images/folder.png', ['width'=>16]),
             'money-bag.png' => Html::img('@web/images/money-bag.png', ['width'=>16]),
             'visa.png' => Html::img('@web/images/visa.png', ['width'=>16]),
+            'tinkoff.png' => Html::img('@web/images/tinkoff.png', ['width'=>16]),
             'pharmacy.png' => Html::img('@web/images/pharmacy.png', ['width'=>16]),
             'blue-credit-card.png' => Html::img('@web/images/blue-credit-card.png', ['width'=>16]),
             'red-credit-card.png' => Html::img('@web/images/red-credit-card.png', ['width'=>16]),
